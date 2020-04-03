@@ -18,7 +18,7 @@ $result=mysqli_query($conexion,$sql);
 	<table class="table table-hover table-condensed" id="iddatatable">
 		<thead style="background-color: #4f944a;color: white; font-weight: bold;">
 			<tr>
-				<td>CODIGO PRODUCTO</td>
+				<td>CODIGO</td>
 				<td>MULTIPLEX</td>
 				<td>PRODUCTO</td>
 				<td>CANTIDAD</td>
