@@ -23,7 +23,7 @@ $result=mysqli_query($conexion,$sql);
 				<td>PRODUCTO</td>
 				<td>CANTIDAD</td>
 				<td>AGREGAR</td>
-				<td>ELEGIR</td>
+				<td>ELEGIR a</td>
 			</tr>
 		</thead>
 		<tfoot style="background-color: #ccc;color: white; font-weight: bold;">
