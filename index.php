@@ -204,7 +204,7 @@
 </html>
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#tabladatatable').load('tablaEmpleados.php')
+    $('#tabladatatable').load('tabla.php')
   });
 
 
