@@ -156,7 +156,7 @@
                 TABLA SNACKS
               </div>
               <div class="card-body">
-                <span class="btn btn-primary" data-toggle="modal" data-target="#agregarSnack"> Agregar Snack <i class="fas fa-user-plus"></i>
+                <span class="btn btn-primary" data-toggle="modal" data-target="#agregarSnack"> Solicitar snack <i class="fas fa-user-plus"></i>
                 </span>
                
 
