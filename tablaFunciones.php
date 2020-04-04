@@ -9,7 +9,7 @@ $conexion=$obj->conexion();
 $cod_mul = 2;
 
 $sql= "	SELECT
-			MULTIPLEX.nom_multiplex, FUNCION.cod_funcion, PELICULA.nombre_pelicula, PELICULA.duracion_pelicula,
+			FUNCION.cod_funcion, SALA_CINE.nombre_sala, PELICULA.nombre_pelicula, PELICULA.duracion_pelicula,
 			FUNCION.fecha_funcion, FUNCION.sillas_disponibles, FUNCION.estado_funcion
 		FROM
 			MULTIPLEX, FUNCION, PELICULA, SALA_CINE
@@ -28,8 +28,8 @@ $result=mysqli_query($conexion,$sql);
 	<table class="table table-hover table-condensed" id="iddatatable">
 		<thead style="background-color: #4f944a;color: white; font-weight: bold;">
 			<tr>
-				<td>MULTIPLEX</td>
 				<td>CODIGO</td>
+				<td>SALA</td>
 				<td>PELICULA</td>
 				<td>DURACIÓN</td>
 				<td>HORARIO</td>
@@ -41,8 +41,8 @@ $result=mysqli_query($conexion,$sql);
 		</thead>
 		<tfoot style="background-color: #ccc;color: white; font-weight: bold;">
 			<tr>
-				<td>MULTIPLEX</td>
 				<td>CODIGO</td>
+				<td>SALA</td>
 				<td>PELICULA</td>
 				<td>DURACIÓN</td>
 				<td>HORARIO</td>

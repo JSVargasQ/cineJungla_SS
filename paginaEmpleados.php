@@ -295,17 +295,19 @@
         success:function(r){
           if(r==1){
             $('#formEmpleado')[0].reset();
+            alertify.success("Agregado con exito.");
             $('#tabladatatable').load('tablaEmpleados.php');
-            alertify.success("Funciono");
           }
           else{
-            alertify.success("Echese a dormir");
+            alertify.error("No se pudo agregar el empleado");
           }
         }
       }); 
 
     });
   });
+
+  
 
 </script>
 
