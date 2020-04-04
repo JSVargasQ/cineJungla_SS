@@ -23,13 +23,13 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    ADMINISTRADOR LOCAL
+    GESTI&Oacute;N DE SNACKS
   </title>
-    <?php   
-        require_once "scripts.php";
-        require_once "clases/conexion.php";
-        $obj=new conectar();
-    ?>
+    <?php 
+    require_once "scripts.php";
+    require_once "clases/conexion.php";
+    $obj=new conectar();
+  ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
  
@@ -115,8 +115,7 @@
                 {
                     echo "MULTIPLEX ". $row['nom_multiplex'];
                 }
-                ?>
-          </a>
+                ?></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -144,6 +143,7 @@
           </div>
         </div>
       </nav>
+
       <!-- End Navbar -->
 
       <div>
@@ -153,22 +153,21 @@
           <div class="col-sm-12">
             <div class="card text-left">
               <div class="card-header">
-                INICIO
+                TABLA SNACKS
               </div>
-              
-              <div class="card-body" align="center">
-                <?php 
-                $conexion=$obj->conexion();
-                $sql="SELECT nombre_empleado FROM empleado where EMPLEADO.cod_usuario = 1010103";
-                $result=mysqli_query($conexion,$sql);
-                
-                while($row = $result->fetch_assoc())
-                {
-                    echo '<br><br><br><br><br><br><br><br><br><br><br><center><h1>'."Bienvenido, ". $row['nombre_empleado'] . '</h1></center><br><br><br><br><br><br><br><br><br><br><br>';
-                }
-                ?>
+              <div class="card-body">
+               
+
+                <hr>
+                <div id="tabladatatable">
+
+
+
+                </div>
+
+
+              </hr>
             </div>
-            
             <div class="card-footer text-muted">
               BY CINEJUNGLA APP
             </div>
@@ -208,8 +207,9 @@
 
 </html>
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('#tabladatatable').load('tabla.php')
+  $(document).ready(function()
+	{
+    $('#tabladatatable').load('tablaSnacks.php')
   });
 
 
