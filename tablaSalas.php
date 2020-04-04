@@ -2,7 +2,7 @@
 header('Content-Type: text/html; charset=UTF-8');
 ?>
 <?php 
-require_once "clases/conexion.php";
+require_once "./clases/conexion.php";
 $obj=new conectar();
 $conexion=$obj->conexion();
 

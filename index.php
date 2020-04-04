@@ -209,7 +209,7 @@
 </html>
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#tabladatatable').load('tabla.php')
+    $('#tabladatatable').load('tabla.php');
   });
 
 

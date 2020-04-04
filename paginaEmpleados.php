@@ -28,6 +28,10 @@
     <?php require_once "scripts.php";
 
 
+    require_once "./clases/conexion.php";
+    $obj=new conectar();
+    $conexion=$obj->conexion();
+
   ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -151,7 +155,7 @@
                 TABLA PRODUCTOS
               </div>
               <div class="card-body">
-                <span class="btn btn-primary" > Agregar empleado <i class="fas fa-user-plus"></i>
+                <span class="btn btn-primary" data-toggle="modal" data-target="#agregarEmpleado"> Agregar empleado <i class="fas fa-user-plus"></i>
                 </span>
 
                 <hr>
@@ -199,12 +203,117 @@
     </div>
     </div>
   </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="agregarEmpleado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar empleado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formEmpleado">
+        <table>
+          <tr>
+            <td><label>Nombre:</label></td>
+            <td><input type="text" id="nombre" name="nombre"></td>
+          </tr>
+
+          <tr>
+            <td><input type="hidden"></td>
+            <td><input type="hidden" id="multiplex" name="multiplex" value=2></td>
+          </tr>
+
+          <tr>
+            <td><label>Salario:</label></td>
+            <td><input type="number" id="salario" values="1" min="0" name="salario"></td>
+          </tr>
+
+          <tr>
+            <td><label>Cod usuario:</label></td>
+            <td><input type="number" id="cod" values="1" min="0" name="cod"></td>
+          </tr>
+
+          <tr>
+            <td><label>Tipo:</label></td>
+            <td><select name="tipo" id="tipo">
+
+                    <?php 
+                      $sql = "SELECT cod_tipo_empleado, nombre_cargo_empleado FROM cargo_empleado";
+                      $result=mysqli_query($conexion,$sql);
+
+                      while( $cargoEmpl = mysqli_fetch_row($result) )
+                  {
+                      echo "<option value=$cargoEmpl[0]>$cargoEmpl[1]</option>"; 
+                  }
+                    ?>
+                  </select></td>
+
+          </tr>
+
+          <tr>
+            <td><label>Correo:</label></td>
+            <td><input type="text" id="correo"  name="correo"></td>
+          </tr>
+
+            <td><label>Fecha de ingreso:</label></td>
+            <td><input type="DATE" id="fecha" name="fecha"></td>
+
+        </table>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" id="btnAgregarNuevo" class="btn btn-primary">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </body>
 
 </html>
+
+
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#tabladatatable').load('tablaEmpleados.php')
+    $('#btnAgregarNuevo').click(function(){
+      datos=$('#formEmpleado').serialize();
+
+    $.ajax({
+        type:"POST",
+        data:datos,
+        url:"procesos/agregarEmpleado.php",
+        success:function(r){
+          if(r==1){
+            $('#formEmpleado')[0].reset();
+            alertify.success("Agregado con exito.");
+            $('#tabladatatable').load('tablaEmpleados.php');
+          }
+          else{
+            alertify.error("No se pudo agregar el empleado");
+          }
+        }
+      }); 
+
+    });
+  });
+
+  
+
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#tabladatatable').load('tablaEmpleados.php');
   });
 
 

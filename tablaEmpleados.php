@@ -2,19 +2,19 @@
 header('Content-Type: text/html; charset=UTF-8');
 ?>
 <?php 
-require_once "clases/conexion.php";
+require_once "./clases/conexion.php";
 $obj=new conectar();
 $conexion=$obj->conexion();
 
 $cod_mul=2;
 
 $sql="	SELECT 
-			cod_empleado, nombre_empleado, nom_multiplex, nombre_cargo_empleado , estado_empleado
+			cod_empleado, nombre_empleado, nom_multiplex, nombre_cargo_empleado , fecha_ingreso_empleado , estado_empleado
 		FROM 
 			empleado, multiplex, cargo_empleado
 		WHERE
 			MULTIPLEX.cod_multiplex = EMPLEADO.cod_multiplex AND
-			CARGO_EMPLEADO.cod_tipo_empleado = EMPLEADO.cod_multiplex AND
+			CARGO_EMPLEADO.cod_tipo_empleado = EMPLEADO.cod_tipo_empleado AND
 			EMPLEADO.cod_multiplex = $cod_mul";
 
 $result=mysqli_query($conexion,$sql);
@@ -29,6 +29,7 @@ $result=mysqli_query($conexion,$sql);
 				<td>NOMBRE</td>
 				<td>MULTIPLEX</td>
 				<td>TIPO</td>
+				<td>INGRESO</td>
 				<td>ESTADO</td>
 				<td>MODIFICAR</td>
 				<td>ELIMINAR</td>
@@ -40,6 +41,7 @@ $result=mysqli_query($conexion,$sql);
 				<td>NOMBRE</td>
 				<td>MULTIPLEX</td>
 				<td>TIPO</td>
+				<td>INGRESO</td>
 				<td>ESTADO</td>
 				<td>MODIFICAR</td>
 				<td>ELIMINAR</td>
@@ -54,7 +56,16 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[1] ?></td>
 					<td><?php echo $mostrar[2] ?></td>
 					<td><?php echo $mostrar[3] ?></td>
-					<td><?php echo $mostrar[4] ?></td>
+
+					<?php 
+						$date = new DateTime( $mostrar[4]);
+					?>
+
+					<td><?php echo date_format($date, 'd/m/Y'); ?></td>
+					
+					
+					
+					<td><?php echo $mostrar[5] ?></td>
 
 					<td>
 						<center><span class="btn btn-warning btn-xs">
