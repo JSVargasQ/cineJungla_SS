@@ -31,7 +31,17 @@
 
 		}
 
-
+		public function agregarSnack($datos){
+		    
+		    $obj=new conectar();
+		    $conexion=$obj->conexion();
+		    
+		    $aux = "select cantidad from cantidad_almacen where cantidad_almacen.producto = .$datos[0].;";
+		    $sql = "UPDATE cantidad_almacen set cantidad = .$aux + $datos[1]. where cantidad_almacen.producto = .$datos[0].;";
+		    
+		    return mysqli_query($conexion, $sql);
+		    
+		}
 	}
 
 

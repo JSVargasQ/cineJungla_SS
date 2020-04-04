@@ -23,8 +23,6 @@ $result=mysqli_query($conexion,$sql);
 				<td>CODIGO</td>
 				<td>PRODUCTO</td>
 				<td>CANTIDAD</td>
-				<td>AGREGAR</td>
-				<td>ELEGIR</td>
 			</tr>
 		</thead>
 		
@@ -33,8 +31,6 @@ $result=mysqli_query($conexion,$sql);
 				<td>CODIGO PRODUCTO</td>
 				<td>PRODUCTO</td>
 				<td>CANTIDAD</td>
-				<td>AGREGAR</td>
-				<td>ELEGIR</td>
 			</tr>
 		</tfoot>
 		
@@ -48,16 +44,6 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[2] ?></td>
 					<td><?php echo $mostrar[3] ?></td>
 					
-					<td>
-						<span class="btn btn-warning btn-xs">
-							<span class="fas fa-drumstick-bite">
-							</span>
-						</span>
-					</td>
-			
-					<td>
-						<input type="number" name="" min="0" max=100>
-					</td>
 				</tr>
 			<?php 
 			}
