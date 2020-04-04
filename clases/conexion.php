@@ -5,7 +5,7 @@
 									'root',
 									'1234',
 									'cinejunglabd');
-   		mysqli_set_charset($conexion, "utf8");  /*Agregar esta linea */
+   			mysqli_set_charset($conexion, "utf8");  /*Agregar esta linea */
 			return $conexion;
 		}
 	}

@@ -19,15 +19,18 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     Now UI Dashboard by Creative Tim
   </title>
-    <?php require_once "scripts.php";
+    <?php require_once "./scripts.php";
 
-
+    require_once "./clases/conexion.php";
+    $obj=new conectar();
+    $conexion=$obj->conexion();
+    
   ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -51,7 +54,7 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
           <li>
-            <a href="./dashboard.html">
+            <a href="../dashboard.html">
               <i class="now-ui-icons design_app"></i>
               <p>FUNCIONES</p>
             </a>
@@ -151,13 +154,12 @@
                 TABLA PRODUCTOS
               </div>
               <div class="card-body">
-                <span class="btn btn-primary" > Añadir función  <i class="fas fa-film"></i>
+
+                <span class="btn btn-primary" data-target="#agregarFuncion"  data-toggle="modal"> Añadir función  <i class="fas fa-film"></i>
                 </span>
 
                 <hr>
                 <div id="tabladatatable">
-
-
 
                 </div>
 
@@ -199,12 +201,138 @@
     </div>
     </div>
   </div>
+
+  
+
+<!-- Modal -->
+<div class="modal fade" id="agregarFuncion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar función</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="frmFuncion" >
+
+            <table>
+              <tr>
+                <td>
+                  <label>Pelicula:</label>     
+                </td>
+
+                <td>     
+                  <select name="pelicula" id="pelicula">
+
+                    <?php 
+                      $sql = "SELECT nombre_pelicula FROM PELICULA";
+                      $result=mysqli_query($conexion,$sql);
+
+                      while( $pelicula = mysqli_fetch_row($result) )
+                      {
+                          echo "<option value='$pelicula[0]'>$pelicula[0]</option>"; 
+                      }
+                    ?>
+                  </select>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <label>Sala:</label>     
+                </td>
+
+                <td>     
+                  <select name="sala" id="sala">
+
+                    <?php 
+                      $sql = "SELECT nombre_sala FROM SALA_CINE";
+                      $result=mysqli_query($conexion,$sql);
+
+                      while( $sala = mysqli_fetch_row($result) )
+                  {
+                      echo "<option value='$sala[0]'>$sala[0]</option>"; 
+                  }
+                    ?>
+                  </select>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label>Fecha:</label>     
+                </td>
+
+                <td>     
+                  <input type="DATE" id="fecha">
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label>Hora:</label>     
+                </td>
+
+                <td>     
+                  <input type="TIME" id="hora">
+                </td>
+              </tr>
+              
+              <tr>
+                <td>
+                  <label>Dias de proyección:</label>     
+                </td>
+
+                <td>     
+                  <input type="number" values="1" min="0" max="365" id="dias">
+                </td>
+              </tr>
+
+            </table>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" id="btnAgregarFuncion" class="btn btn-primary">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 
 </html>
+
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#tabladatatable').load('tablaFunciones.php')
+    $('#btnAgregarFuncion').click(function(){
+      datos=$('#frmFuncion').serialize();
+
+      $.ajax({
+				type:"POST",
+				data:datos,
+				url:"procesos/insertarFuncion.php",
+				success:function(r){
+					if(r==1){
+						$('#tablaDatatable').load('tablaFunciones.php');
+						alertify.success("Actualizado con exito :D");
+					}else{
+						alertify.error("Fallo al actualizar :(");
+					}
+				}
+			});
+		});
+	});
+
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#tabladatatable').load('tablaFunciones.php');
   });
 
 
