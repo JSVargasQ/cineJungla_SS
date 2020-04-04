@@ -8,14 +8,17 @@ $conexion=$obj->conexion();
 
 $cod_mul = 2;
 
-$sql="	SELECT 
-			MULTIPLEX.nom_multiplex, SALA_CINE.cod_sala_cine, SALA_CINE.nombre_sala 
-		FROM 
-			MULTIPLEX, SALA_CINE 
-		WHERE 
-			SALA_CINE.cod_multiplex = MULTIPLEX.cod_multiplex AND 
+$sql= "	SELECT
+			MULTIPLEX.nom_multiplex, FUNCION.cod_funcion, PELICULA.nombre_pelicula, PELICULA.duracion_pelicula,
+			FUNCION.fecha_funcion, FUNCION.sillas_disponibles, FUNCION.estado_funcion
+		FROM
+			MULTIPLEX, FUNCION, PELICULA, SALA_CINE
+		WHERE
+			FUNCION.cod_pelicula = PELICULA.cod_pelicula AND
+			FUNCION.cod_sala_cine = SALA_CINE.cod_sala_cine AND
+			SALA_CINE.cod_multiplex = MULTIPLEX.cod_multiplex AND
 			MULTIPLEX.cod_multiplex = $cod_mul";
-
+			
 $result=mysqli_query($conexion,$sql);
 
 
@@ -27,16 +30,26 @@ $result=mysqli_query($conexion,$sql);
 			<tr>
 				<td>MULTIPLEX</td>
 				<td>CODIGO</td>
-				<td>NOMBRE</td>
-				<td>ACCIÓN</td>
+				<td>PELICULA</td>
+				<td>DURACIÓN</td>
+				<td>HORARIO</td>
+				<td>SILLAS LIBRES</td>
+				<td>ESTADO</td>
+				<td>EDITAR</td>
+				<td>ELIMINAR</td>
 			</tr>
 		</thead>
 		<tfoot style="background-color: #ccc;color: white; font-weight: bold;">
 			<tr>
 				<td>MULTIPLEX</td>
 				<td>CODIGO</td>
-				<td>NOMBRE</td>
-				<td>ACCIÓN</td>
+				<td>PELICULA</td>
+				<td>DURACIÓN</td>
+				<td>HORARIO</td>
+				<td>SILLAS LIBRES</td>
+				<td>ESTADO</td>
+				<td>EDITAR</td>
+				<td>ELIMINAR</td>
 			</tr>
 		</tfoot>
 		<tbody>
@@ -47,30 +60,22 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[0] ?></td>
 					<td><?php echo $mostrar[1] ?></td>
 					<td><?php echo $mostrar[2] ?></td>
-					
-
-					<?php 
-						$icon = "";
-
-						if( !strcasecmp($mostrar[2], "ACTIVO") == 0 )
-						{
-							$icon = "far fa-window-close";
-						}
-						else
-						{
-							$icon = "fas fa-check";
-						}
-
-					?>
+					<td><?php echo $mostrar[3] ?></td>
+					<td><?php echo $mostrar[4] ?></td>
+					<td><?php echo $mostrar[5] ?></td>
+					<td><?php echo $mostrar[6] ?></td>
 
 					<td>
 						<span class="btn btn-warning btn-xs">
-							<?php echo "<span class='$icon'></span>";  ?>
-							
+							<span class="far fa-edit"></span>
 						</span>
-					</td>	
+					</td>
 
-					
+					<td>
+						<span class="btn btn-warning btn-xs">
+							<span class="fas fa-minus-circle"></span>
+						</span>
+					</td>
 				</tr>
 				<?php 
 			}

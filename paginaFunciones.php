@@ -97,7 +97,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" style="font-size:3 ">Table List</a>
+            <a class="navbar-brand" style="font-size:3 ">FUNCIONES</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -151,7 +151,7 @@
                 TABLA PRODUCTOS
               </div>
               <div class="card-body">
-                <span class="btn btn-primary" > Agregar Nuevo  <i class="fas fa-folder-plus"></i>
+                <span class="btn btn-primary" > Añadir función  <i class="fas fa-film"></i>
                 </span>
 
                 <hr>
@@ -204,7 +204,7 @@
 </html>
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#tabladatatable').load('tabla.php')
+    $('#tabladatatable').load('tablaFunciones.php')
   });
 
 
