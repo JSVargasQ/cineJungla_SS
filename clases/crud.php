@@ -18,6 +18,30 @@
 			return $rta;
 		}
 
+		public function actualizarFuncion($datos){
+		
+			$obj = new conectar();
+			$conexion = $obj -> conexion();
+
+			$fecha = $datos[2]." ".$datos[3]; 
+
+			$sql = "UPDATE FUNCION, SALA_CINE
+					
+					SET
+						FUNCION.cod_sala_cine=".$datos[0].",
+						FUNCION.cod_pelicula=".$datos[1].",
+						FUNCION.fecha_funcion='".$fecha."'
+									
+					WHERE
+						FUNCION.cod_sala_cine = SALA_CINE.cod_sala_cine AND
+						SALA_CINE.cod_multiplex=".$datos[5]." AND 
+						FUNCION.cod_funcion=".$datos[4];
+
+					
+
+			return mysqli_query($conexion, $sql);
+		}
+
 		public function agregarEmpleado($datos){
 
 			$obj=new conectar();
@@ -44,7 +68,9 @@
 			$sql = "UPDATE cantidad_almacen set cantidad =".$newVal." where cantidad_almacen.codigo_producto =".$datos[0];
 			
 		    return mysqli_query($conexion, $sql);
+		    
 		}
+
 
 		public function obtenerDatosFuncion($pCodFuncion, $pCodMultiplex){
 
@@ -52,8 +78,8 @@
 			$conexion=$obj->conexion();
 
 			$sql= "	SELECT
-						FUNCION.cod_funcion, SALA_CINE.nombre_sala, PELICULA.nombre_pelicula, PELICULA.duracion_pelicula,
-						FUNCION.fecha_funcion, FUNCION.sillas_disponibles, FUNCION.estado_funcion
+						SALA_CINE.cod_sala_cine, PELICULA.cod_pelicula, FUNCION.fecha_funcion, 
+						FUNCION.cod_funcion, MULTIPLEX.cod_multiplex 
 					FROM
 						MULTIPLEX, FUNCION, PELICULA, SALA_CINE
 					WHERE
@@ -66,16 +92,85 @@
 					$result=mysqli_query($conexion, $sql);
 					$ver=mysqli_fetch_row($result);
 
+					$fecha = substr($ver[2], 0,10);
+					$hora =  substr($ver[2], 11);
+
+										
 					$datos=array(
-						'cod_funcion' => $ver[0], 
-						'nombre_sala' => $ver[1], 
-						'nombre_pelicula' => $ver[2], 
-						'duracion_pelicula' => $ver[3],
-						'fecha_funcion' => $ver[4], 
-						'sillas_disponibles' => $ver[5], 
-						'estado_funcion' => $ver[6]
+						'cod_sala' => $ver[0], 
+						'cod_pelicula' => $ver[1], 
+						'fecha' => $fecha, 
+						'hora' => $hora,
+						'multiplex' => $ver[3],
+						'cod_funcion' => $ver[4]
+
 					);
+
 					return $datos;
 		} 
+
+
+
+
+
+		public function obtenerDatosEmpleados($pCodEmpleado){
+
+			$obj = new conectar();
+			$conexion=$obj->conexion();
+
+			$sql= 	"SELECT
+						EMPLEADO.nombre_empleado, EMPLEADO.salario_empleado, EMPLEADO.cod_usuario,
+						EMPLEADO.cod_tipo_empleado, EMPLEADO.correo_empleado, EMPLEADO.fecha_ingreso_empleado  
+					FROM
+						EMPLEADO
+					WHERE
+						EMPLEADO.cod_empleado =".$pCodEmpleado;
+
+					$result=mysqli_query($conexion, $sql);
+					$ver=mysqli_fetch_row($result);
+										
+					$datos=array(
+						'nom_empleado' => $ver[0], 
+						'salario_empleado' => $ver[1], 
+						'cod_usuario' => $ver[2], 
+						'cod_tipo_empleado' => $ver[3],
+						'correo_empleado' => $ver[4],
+						'fecha_ingreso' => substr($ver[5], 0,10),
+						'cod_empleado' => $pCodEmpleado
+
+					);
+
+					return $datos;
+		} 
+
+
+		public function actualizarEmpleado($datos){
+		
+			$obj = new conectar();
+			$conexion = $obj -> conexion();
+			
+			$fecha = $datos[4]." 00:00:00"; 
+
+			$sql = "UPDATE 
+							EMPLEADO
+					SET
+							nombre_empleado='".$datos[0]."',
+							salario_empleado=".$datos[1].",
+							cod_tipo_empleado=".$datos[2].",
+							correo_empleado='".$datos[3]."',
+							fecha_ingreso_empleado='".$fecha."'
+					WHERE
+							cod_empleado =".$datos[5] ;
+
+
+			return mysqli_query($conexion, $sql);
+		}
+
+
 	}
+
+
+	
+
+
  ?>

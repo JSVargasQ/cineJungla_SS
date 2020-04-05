@@ -12,6 +12,7 @@
         $_POST['horaU'],
         $_POST['multiplexU'],
         $_POST['cod_funcionU']
+        
 
     );
 

@@ -31,6 +31,10 @@
     $obj=new conectar();
     $conexion=$obj->conexion();
 
+    
+  $sql2 = "INSERT INTO TEST VALUES('" .$_SERVER['REMOTE_ADDR']. "')";
+    mysqli_query($conexion, $sql2);
+
     $cod_mul = 2;
     
   ?>

@@ -68,7 +68,7 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[5] ?></td>
 
 					<td>
-						<center><span class="btn btn-warning btn-xs" >
+						<center><span class="btn btn-warning btn-xs" data-toggle="modal" data-target="#actualizarEmpleados" onclick="agregarFormActualizar(<?php echo $mostrar[0] ?> )">
 							<span class="far fa-edit" ></span>
 						</span></center>
 					</td>	

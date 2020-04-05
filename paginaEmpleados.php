@@ -206,7 +206,7 @@
 
 
 
-<!-- Modal -->
+<!-- Modal INSERT-->
 <div class="modal fade" id="agregarEmpleado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -277,6 +277,74 @@
 </div>
 
 
+<!-- Modal UPDATE-->
+<div class="modal fade" id="actualizarEmpleados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Actualizar empleado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formEmpleadoU">
+        <table>
+
+          <tr>
+            <td><input type="hidden" id="cod_empleadoU" name="cod_empleadoU" value=""></td>
+          </tr>
+
+          <tr>
+            <td><label>Nombre:</label></td>
+            <td><input type="text" id="nombreU" name="nombreU" required ></td>
+          </tr>
+
+          <tr>
+            <td><label>Salario:</label></td>
+            <td><input type="number" id="salarioU" values="1" min="0" name="salarioU"></td>
+          </tr>
+
+
+
+          <tr>
+            <td><label>Tipo:</label></td>
+            <td><select name="tipoU" id="tipoU">
+
+                    <?php 
+                      $sql = "SELECT cod_tipo_empleado, nombre_cargo_empleado FROM cargo_empleado";
+                      $result=mysqli_query($conexion,$sql);
+
+                      while( $cargoEmpl = mysqli_fetch_row($result) )
+                  {
+                      echo "<option value=$cargoEmpl[0]>$cargoEmpl[1]</option>"; 
+                  }
+                    ?>
+                  </select></td>
+
+          </tr>
+
+          <tr>
+            <td><label>Correo:</label></td>
+            <td><input type="text" id="correoU"  name="correoU"></td>
+          </tr>
+
+            <td><label>Fecha de ingreso:</label></td>
+            <td><input type="DATE" id="fechaU" name="fechaU"></td>
+
+        </table>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" id="btnActualizarEmpleado" class="btn btn-primary">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 </body>
 
@@ -285,6 +353,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+
     $('#btnAgregarNuevo').click(function(){
       datos=$('#formEmpleado').serialize();
 
@@ -305,6 +374,31 @@
       }); 
 
     });
+
+
+
+    $('#btnActualizarEmpleado').click(function(){
+      datos=$('#formEmpleadoU').serialize();
+
+    $.ajax({
+        type:"POST",
+        data:datos,
+        url:"procesos/actualizarEmpleados.php",
+        success:function(r){
+          if(r==1){
+            $('#formEmpleadoU')[0].reset();
+            alertify.success("Actualizado con exito.");
+            $('#tabladatatable').load('tablaEmpleados.php');
+          }
+          else{
+            alertify.error("No se pudo actualizar el empleado");
+          }
+        }
+      }); 
+
+    });
+
+
   });
 
   
@@ -317,4 +411,39 @@
   });
 
 
+</script>
+
+
+<script type="text/javascript">
+  function agregarFormActualizar(cod_empleado){
+
+    var parametros = {
+                "cod_empleado" : cod_empleado,
+        };
+
+    $.ajax({
+
+      type:"POST",
+      data:parametros,
+      url:"procesos/obtenerDatosEmpleados.php",
+      success:function(r){
+
+      datos=jQuery.parseJSON(r);   
+
+      $('#cod_empleadoU').val(datos['cod_empleado']);
+      $('#nombreU').val(datos['nom_empleado']);
+      $('#salarioU').val(datos['salario_empleado']);
+      $('#tipoU').val(datos['cod_tipo_empleado']);
+      $('#correoU').val(datos['correo_empleado']);
+      $('#fechaU').val(datos['fecha_ingreso']);
+      
+      }
+
+    });
+
+  }
+
+    
+
+  
 </script>
