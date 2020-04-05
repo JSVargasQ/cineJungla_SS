@@ -4,6 +4,6 @@
     require_once "../clases/crud.php";
     $obj= new crud();
 
-    echo $obj->eliminarEmpleado( $_POST['cod_empleado']);
+    echo $obj->desabilitarEmpleado( $_POST['cod_empleado']);
     
 ?>

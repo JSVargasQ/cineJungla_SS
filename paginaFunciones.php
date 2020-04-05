@@ -499,7 +499,39 @@
 
     });
 
-    
-
   }
+
+  function eliminarFuncion(pCodFuncion, pCodMultiplex){
+
+  alertify.confirm('Eliminar empleado', '¿Seguro de eliminar esta función?', 
+        function(){ 
+          var parametros = {
+              "cod_funcion" : pCodFuncion,
+              "cod_multiplex" : pCodMultiplex 
+          };
+
+          $.ajax({
+
+          type:"POST",
+          data:parametros,
+          url:"procesos/eliminarFuncion.php",
+          success:function(r){
+            console.log(r);
+            if(r==1){
+
+              alertify.success("Se ha eliminado la función");
+              $('#tabladatatable').load('tablaFunciones.php');
+
+            }else{
+              alertify.error("No se ha podido eliminar");
+            }
+
+          }
+
+          });
+        }, 
+        function(){ 
+          
+        });
+}
 </script>

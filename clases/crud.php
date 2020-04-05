@@ -37,8 +37,6 @@
 						SALA_CINE.cod_multiplex=".$datos[5]." AND 
 						FUNCION.cod_funcion=".$datos[4];
 
-					
-
 			return mysqli_query($conexion, $sql);
 		}
 
@@ -166,7 +164,7 @@
 			return mysqli_query($conexion, $sql);
 		}
 
-		function eliminarEmpleado($pCodEmpleado){
+		function desabilitarEmpleado($pCodEmpleado){
 			$obj = new conectar();
 			$conexion = $obj -> conexion();
 	
@@ -175,8 +173,42 @@
 			return mysqli_query($conexion, $sql);
 			
 		}
+
+		function habilitarEmpleado($pCodEmpleado){
+			$obj = new conectar();
+			$conexion = $obj -> conexion();
+	
+			$sql = "UPDATE EMPLEADO SET estado_empleado='ACTIVO' WHERE cod_empleado=".$pCodEmpleado;
+	
+			return mysqli_query($conexion, $sql);
+			
+		}
+
+		function eliminarFuncion($pCodFuncion, $pCodMultiplex){
+			$obj = new conectar();
+			$conexion = $obj -> conexion();
+
+			$sql = "UPDATE FUNCION, SALA_CINE
+					
+					SET
+						FUNCION.estado_funcion='NO DISPONIBLE'
+
+					WHERE
+						FUNCION.cod_sala_cine = SALA_CINE.cod_sala_cine AND
+						SALA_CINE.cod_multiplex=".$pCodMultiplex." AND 
+						FUNCION.cod_funcion=".$pCodFuncion;
+
+
+			return mysqli_query($conexion, $sql);
+			
 	}
 
+
+	
+
+
+		
+}
 
 
 	

@@ -443,28 +443,28 @@
 
   }
 
-  function eliminarEmpleado(pCodEmpleado){
+  function desabilitarEmpleado(pCodEmpleado){
 
-    alertify.confirm('Eliminar empleado', '¿Seguro de eliminar este empleado?', 
+    alertify.confirm('Desabilitar empleado', '¿Seguro desea desabilitar este empleado?', 
           function(){ 
             var parametros = {
-                "cod_empleado" : pCodEmpleado,
+                "cod_empleado" : pCodEmpleado
             };
 
             $.ajax({
 
             type:"POST",
             data:parametros,
-            url:"procesos/eliminarEmpleado.php",
+            url:"procesos/desabilitarEmpleado.php",
             success:function(r){
-              console.log(r);
+
               if(r==1){
 
-                alertify.success("Se ha eliminado");
+                alertify.success("Se desabilito");
                 $('#tabladatatable').load('tablaEmpleados.php');
 
               }else{
-                alertify.error("No se ha podido eliminado");
+                alertify.error("No se pudo desabilitar");
               }
 
             }
@@ -474,6 +474,39 @@
           function(){ 
             
           });
+  }
+
+  function habilitarEmpleado(pCodEmpleado){
+
+  alertify.confirm('Habilitar empleado', '¿Seguro desea habilitar este empleado?', 
+        function(){ 
+          var parametros = {
+              "cod_empleado" : pCodEmpleado
+          };
+
+          $.ajax({
+
+          type:"POST",
+          data:parametros,
+          url:"procesos/habilitarEmpleado.php",
+          success:function(r){
+
+            if(r==1){
+
+              alertify.success("Se ha habilitado");
+              $('#tabladatatable').load('tablaEmpleados.php');
+
+            }else{
+              alertify.error("No se ha podido habilitar");
+            }
+
+          }
+
+          });
+        }, 
+        function(){ 
+          
+        });
   }
 
     

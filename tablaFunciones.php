@@ -10,7 +10,8 @@ $cod_mul = 2;
 
 $sql= "	SELECT
 			FUNCION.cod_funcion, SALA_CINE.nombre_sala, PELICULA.nombre_pelicula, PELICULA.duracion_pelicula,
-			FUNCION.fecha_funcion, FUNCION.sillas_disponibles, FUNCION.estado_funcion
+			FUNCION.fecha_funcion, FUNCION.sillas_disponibles, FUNCION.estado_funcion,
+			MULTIPLEX.cod_multiplex
 		FROM
 			MULTIPLEX, FUNCION, PELICULA, SALA_CINE
 		WHERE
@@ -66,16 +67,26 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[6] ?></td>
 
 					<td>
+						<?php if( strcasecmp($mostrar[6], "DISPONIBLE") == 0  ){ ?>
+
 						<span class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateFuncion" onclick="agregarFormActualizar(<?php echo $mostrar[0].','.$cod_mul ?> )">
 							<span class="far fa-edit"></span>
 						</span>
+
+						<?php  } ?>
+
+						
 					</td>
 
 					<td>
-						<span class="btn btn-warning btn-xs">
+						<?php if( strcasecmp($mostrar[6], "DISPONIBLE") == 0  ){ ?>
+
+						<span class="btn btn-warning btn-xs" onclick="eliminarFuncion(<?php echo $mostrar[0]; echo ','; echo $mostrar[7] ?>)">
 							<span class="fas fa-minus-circle"></span>
 						</span>
 					</td>
+
+					<?php  }  ?>
 				</tr>
 				<?php 
 			}

@@ -32,7 +32,7 @@ $result=mysqli_query($conexion,$sql);
 				<td>INGRESO</td>
 				<td>ESTADO</td>
 				<td>MODIFICAR</td>
-				<td>ELIMINAR</td>
+				<td>ACCIÓN</td>
 			</tr>
 		</thead>
 		<tfoot style="background-color: #ccc;color: white; font-weight: bold;">
@@ -44,7 +44,7 @@ $result=mysqli_query($conexion,$sql);
 				<td>INGRESO</td>
 				<td>ESTADO</td>
 				<td>MODIFICAR</td>
-				<td>ELIMINAR</td>
+				<td>ACCIÓN</td>
 			</tr>
 		</tfoot>
 		<tbody>
@@ -68,15 +68,26 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[5] ?></td>
 
 					<td>
-						<center><span class="btn btn-warning btn-xs" data-toggle="modal" data-target="#actualizarEmpleados" onclick="agregarFormActualizar(<?php echo $mostrar[0] ?> )">
+						<?php if( strcasecmp($mostrar[5], "ACTIVO") == 0  ){ ?>
+							<span class="btn btn-warning btn-xs" data-toggle="modal" data-target="#actualizarEmpleados" onclick="agregarFormActualizar(<?php echo $mostrar[0] ?> )">
 							<span class="far fa-edit" ></span>
-						</span></center>
+						</span>
+
+						<?php  } else{} ?>
+
+						
 					</td>	
 
 					<td>
-						<center><span class="btn btn-warning btn-xs" onclick="eliminarEmpleado(<?php echo $mostrar[0] ?> )">
-							<span class="fas fa-user-times"></span>
-						</span></center>
+						<?php if( strcasecmp($mostrar[5], "ACTIVO") == 0  ){ ?>
+							<span class="btn btn-warning btn-xs" onclick="desabilitarEmpleado(<?php echo $mostrar[0] ?> )">
+								<span class="fas fa-user-alt-slash"></span>
+							</span>
+						<?php  } else { ?>
+							<span class="btn btn-warning btn-xs" onclick="habilitarEmpleado(<?php echo $mostrar[0] ?> )">
+								<span class="fas fa-user-check"></span>
+							</span>
+						<?php } ?>
 					</td>	
 
 
