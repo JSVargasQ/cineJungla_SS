@@ -19,17 +19,20 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    GESTI&Oacute;N DE SNACKS
+    ADMINISTRADOR LOCAL
   </title>
     <?php 
     require_once "scripts.php";
     require_once "clases/conexion.php";
     $obj=new conectar();
-  ?>
+    $conexion=$obj->conexion();
+    $sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Read', 'Snacks', now(),'".$_SERVER['REMOTE_ADDR']."');";
+    $result=mysqli_query($conexion,$sql);
+    ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
  
@@ -52,37 +55,37 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
           <li>
-            <a href="paginaFunciones.php">
+            <a href="A_paginaFunciones.php">
               <i class="now-ui-icons design_app"></i>
               <p>GESTI&Oacute;N DE FUNCIONES</p>
             </a>
           </li>
           <li>
-            <a href="paginaSnacks.php">
+            <a href="A_paginaSnacks.php">
               <i class="now-ui-icons education_atom"></i>
               <p>GESTI&Oacute;N DE SNACKS</p>
             </a>
           </li>
           <li>
-            <a href="paginaSalas.php">
+            <a href="A_paginaSalas.php">
               <i class="now-ui-icons location_map-big"></i>
               <p>GESTI&Oacute;N DE SALAS</p>
             </a>
           </li>
           <li>
-            <a href="paginaEmpleados.php">
+            <a href="A_paginaEmpleados.php">
               <i class="now-ui-icons ui-1_bell-53"></i>
               <p>GESTI&Oacute;N DE EMPLEADOS</p>
             </a>
           </li>
           <li>
-            <a href="paginaAuditoria.php">
+            <a href="A_paginaAuditoria.php">
               <i class="now-ui-icons users_single-02"></i>
               <p>AUDITORIA</p>
             </a>
           </li>
           <li>
-            <a href="paginaReportes.php">
+            <a href="A_paginaReportes.php">
               <i class="now-ui-icons users_single-02"></i>
               <p>REPORTES</p>
             </a>
@@ -236,7 +239,7 @@
           
           <tr>
             <td><label>Cantidad</label></td>
-            <td><input type="number" name="cantidad" id="cantidad" min="0" max=100/></td>
+            <td><input type="number" name="cantidad" id="cantidad" min="10" max=100/></td>
           </tr>
 
         </table>
@@ -267,7 +270,7 @@
           if(r==1){
             $('#formSnack')[0].reset();
             alertify.success("Agregado con exito.");
-            $('#tabladatatable').load('tablaSnacks.php');
+            $('#tabladatatable').load('A_tablaSnacks.php');
           }
           else{
             alertify.error("No se pudo agregar el snack");
@@ -283,7 +286,7 @@
 <script type="text/javascript">
   $(document).ready(function()
 	{
-    $('#tabladatatable').load('tablaSnacks.php')
+    $('#tabladatatable').load('A_tablaSnacks.php')
   });
 
 

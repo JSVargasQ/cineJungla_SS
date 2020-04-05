@@ -19,17 +19,20 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    GESTI&Oacute;N DE SNACKS
+    ADMINISTRADOR LOCAL
   </title>
-    <?php 
+    <?php   
     require_once "scripts.php";
     require_once "clases/conexion.php";
     $obj=new conectar();
-  ?>
+    $conexion=$obj->conexion();
+    $sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Read', 'Salas', now(),'".$_SERVER['REMOTE_ADDR']."');";
+    $result=mysqli_query($conexion,$sql);
+    ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
  
@@ -52,37 +55,38 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
           <li>
-            <a href="paginaFunciones.php">
+            <a href="A_paginaFunciones.php">
               <i class="now-ui-icons design_app"></i>
               <p>GESTI&Oacute;N DE FUNCIONES</p>
             </a>
           </li>
           <li>
-            <a href="paginaSnacks.php">
-              <i class="now-ui-icons education_atom"></i>
+            <a href="A_paginaSnacks.php">
+              <i class="now-ui-icons education_atom">
+              </i>
               <p>GESTI&Oacute;N DE SNACKS</p>
             </a>
           </li>
           <li>
-            <a href="paginaSalas.php">
+            <a href="A_paginaSalas.php">
               <i class="now-ui-icons location_map-big"></i>
               <p>GESTI&Oacute;N DE SALAS</p>
             </a>
           </li>
           <li>
-            <a href="paginaEmpleados.php">
+            <a href="A_paginaEmpleados.php">
               <i class="now-ui-icons ui-1_bell-53"></i>
               <p>GESTI&Oacute;N DE EMPLEADOS</p>
             </a>
           </li>
           <li>
-            <a href="paginaAuditoria.php">
+            <a href="A_paginaAuditoria.php">
               <i class="now-ui-icons users_single-02"></i>
               <p>AUDITORIA</p>
             </a>
           </li>
           <li>
-            <a href="paginaReportes.php">
+            <a href="A_paginaReportes.php">
               <i class="now-ui-icons users_single-02"></i>
               <p>REPORTES</p>
             </a>
@@ -115,7 +119,8 @@
                 {
                     echo "MULTIPLEX ". $row['nom_multiplex'];
                 }
-                ?></a>
+                ?>
+          </a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -143,7 +148,6 @@
           </div>
         </div>
       </nav>
-
       <!-- End Navbar -->
 
       <div>
@@ -153,7 +157,7 @@
           <div class="col-sm-12">
             <div class="card text-left">
               <div class="card-header">
-                TABLA AUDITORIA
+                TABLA PRODUCTOS
               </div>
               <div class="card-body">
                
@@ -203,15 +207,84 @@
     </div>
     </div>
   </div>
-  
 </body>
+
 </html>
-  
 <script type="text/javascript">
-  $(document).ready(function()
-	{
-    $('#tabladatatable').load('tablaAuditoria.php')
+  $(document).ready(function(){
+    $('#tabladatatable').load('A_tablaSalas.php')
   });
 
+</script>
+<script>
+
+function desabilitarSala(pCodSala, pCodMultiplex){
+
+    alertify.confirm('Deshabilitar sala', '¿Seguro desea deshabilitar esta sala?', 
+      function(){ 
+        var parametros = {
+            "cod_sala" : pCodSala,
+            "cod_multiplex" : pCodMultiplex
+        };
+
+        $.ajax({
+
+        type:"POST",
+        data:parametros,
+        url:"procesos/desabilitarSala.php",
+        success:function(r){
+
+          if(r==1){
+
+            alertify.success("Se deshabilito");
+            $('#tabladatatable').load('A_tablaSalas.php');
+
+          }else{
+            alertify.error("No se pudo deshabilitar");
+          }
+
+        }
+
+        });
+      }, 
+      function(){ 
+        
+      });
+}
+
+function habilitarSala(pCodSala, pCodMultiplex){
+
+    alertify.confirm('Habilitar sala', '¿Seguro desea habilitar esta sala?', 
+        function(){ 
+          var parametros = {
+              "cod_sala" : pCodSala,
+              "cod_multiplex" : pCodMultiplex
+
+          };
+
+          $.ajax({
+
+          type:"POST",
+          data:parametros,
+          url:"procesos/habilitarSala.php",
+          success:function(r){
+
+            if(r==1){
+
+              alertify.success("Se ha habilitado");
+              $('#tabladatatable').load('A_tablaSalas.php');
+
+            }else{
+              alertify.error("No se ha podido habilitar");
+            }
+
+          }
+
+          });
+        }, 
+        function(){ 
+          
+        });
+}
 
 </script>

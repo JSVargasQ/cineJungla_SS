@@ -23,19 +23,16 @@
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Now UI Dashboard by Creative Tim
+    ADMINISTRADOR LOCAL
   </title>
-    <?php require_once "./scripts.php";
-
+    <?php 
+    require_once "./scripts.php";
     require_once "./clases/conexion.php";
     $obj=new conectar();
     $conexion=$obj->conexion();
 
-    
-  $sql2 = "INSERT INTO TEST VALUES('" .$_SERVER['REMOTE_ADDR']. "')";
-    mysqli_query($conexion, $sql2);
-
-    $cod_mul = 2;
+    $sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Read', 'Funciones', now(),'".$_SERVER['REMOTE_ADDR']."');";
+    $result=mysqli_query($conexion,$sql);
     
   ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -60,33 +57,40 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
           <li>
-            <a href="../dashboard.html">
+            <a href="A_paginaFunciones.php">
               <i class="now-ui-icons design_app"></i>
-              <p>FUNCIONES</p>
+              <p>GESTI&Oacute;N DE FUNCIONES</p>
             </a>
           </li>
           <li>
-            <a href="./icons.html">
-              <i class="now-ui-icons education_atom"></i>
-              <p>ALIMENTOS Y BEBIDAS</p>
+            <a href="A_paginaSnacks.php">
+              <i class="now-ui-icons education_atom">
+              </i>
+              <p>GESTI&Oacute;N DE SNACKS</p>
             </a>
           </li>
           <li>
-            <a href="./map.html">
+            <a href="A_paginaSalas.php">
               <i class="now-ui-icons location_map-big"></i>
-              <p>PELICULAS</p>
+              <p>GESTI&Oacute;N DE SALAS</p>
             </a>
           </li>
           <li>
-            <a href="./notifications.html">
+            <a href="A_paginaEmpleados.php">
               <i class="now-ui-icons ui-1_bell-53"></i>
-              <p>INGRESAR CLIENTE</p>
+              <p>GESTI&Oacute;N DE EMPLEADOS</p>
             </a>
           </li>
           <li>
-            <a href="./user.html">
+            <a href="A_paginaAuditoria.php">
               <i class="now-ui-icons users_single-02"></i>
-              <p>REGISTRAR CLIENTE</p>
+              <p>AUDITORIA</p>
+            </a>
+          </li>
+          <li>
+            <a href="A_paginaReportes.php">
+              <i class="now-ui-icons users_single-02"></i>
+              <p>REPORTES</p>
             </a>
           </li>
 
@@ -106,7 +110,19 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" style="font-size:3 ">FUNCIONES</a>
+            <a class="navbar-brand" style="font-size:3 ">
+            <?php 
+                $conexion=$obj->conexion();
+                $var =2;
+                $sql="SELECT nom_multiplex FROM MULTIPLEX where MULTIPLEX.cod_multiplex = $var";
+                $result=mysqli_query($conexion,$sql);
+                
+                while($row = $result->fetch_assoc())
+                {
+                    echo "MULTIPLEX ". $row['nom_multiplex'];
+                }
+            ?>
+            </a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -116,33 +132,19 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                  <i class="now-ui-icons media-2_sound-wave"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Stats</span>
-                  </p>
+                <a class="nav-link" href="#sergio">
                 </a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="now-ui-icons location_world"></i>
+                  <i class="now-ui-icons users_single-02"></i>
                   <p>
-                    <span class="d-lg-none d-md-block">Some Actions</span>
+                    <span class="d-lg-none d-md-block">Usuario</span>
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  <a class="dropdown-item" href="tabla.php">Cerrar sesi&oacute;n</a>
                 </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                  <i class="now-ui-icons users_single-02"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
-                </a>
               </li>
             </ul>
           </div>
@@ -254,6 +256,7 @@
                   <select name="sala" id="sala">
 
                     <?php 
+                      $cod_mul = 2;
                       $sql = "SELECT cod_sala_cine, nombre_sala FROM SALA_CINE WHERE SALA_CINE.cod_multiplex=".$cod_mul." AND SALA_CINE.estado_sala='ACTIVO'";
                       $result=mysqli_query($conexion,$sql);
 
@@ -424,7 +427,7 @@
           if(r==1){
             $('#formFuncion')[0].reset();
             alertify.success("Agregado con exito.");
-            $('#tabladatatable').load('tablaFunciones.php');
+            $('#tabladatatable').load('A_tablaFunciones.php');
           }
           else{
             alertify.error("No se pudo agregar la función.");
@@ -446,7 +449,7 @@
           if(r==1){
             $('#formFuncionU')[0].reset();
             alertify.success("Función actualizada con exito.");
-            $('#tabladatatable').load('tablaFunciones.php');
+            $('#tabladatatable').load('A_tablaFunciones.php');
           }
           else{
             alertify.error("No se pudo actualizar la función.");
@@ -465,7 +468,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#tabladatatable').load('tablaFunciones.php');
+    $('#tabladatatable').load('A_tablaFunciones.php');
   });
 
 
@@ -520,7 +523,7 @@
             if(r==1){
 
               alertify.success("Se ha eliminado la función");
-              $('#tabladatatable').load('tablaFunciones.php');
+              $('#tabladatatable').load('A_tablaFunciones.php');
 
             }else{
               alertify.error("No se ha podido eliminar");

@@ -1,6 +1,6 @@
 <?php 
 
-	class crud{
+	class A_crud{
 
 		public function agregarFuncion($datos){
 		
@@ -12,10 +12,12 @@
 			$fecha = $datos[3] . " " . $datos[4];
 
 			$sql = "CALL INGRESAR_FUNCIONES($datos[0],$datos[1],$datos[2],'$fecha')";
-
-			$rta = mysqli_query($conexion, $sql);
-
-			return $rta;
+			$r = mysqli_query($conexion, $sql);
+			
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Insert', 'Funciones', now(),'".$_SERVER['REMOTE_ADDR']."');";
+			$result=mysqli_query($conexion,$sql);
+			
+			return $r;
 		}
 
 		public function actualizarFuncion($datos){
@@ -37,7 +39,12 @@
 						SALA_CINE.cod_multiplex=".$datos[5]." AND 
 						FUNCION.cod_funcion=".$datos[4];
 
-			return mysqli_query($conexion, $sql);
+			$r = mysqli_query($conexion, $sql);
+			
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Update', 'Funciones', now(),'".$_SERVER['REMOTE_ADDR']."');";
+			$result=mysqli_query($conexion,$sql);
+			
+			return $r;
 		}
 
 		public function agregarEmpleado($datos){
@@ -48,8 +55,12 @@
 			$fecha = $datos[6] . " 00:00:00";
 
 			$sql = "INSERT INTO EMPLEADO VALUES(NULL,'".$datos[0]."',".$datos[1].",'".$fecha."',".$datos[2].",".$datos[3].",".$datos[4].",'".$datos[5]."','ACTIVO')";
-
-			return mysqli_query($conexion, $sql);
+			$r = mysqli_query($conexion, $sql);
+			
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Insert', 'Empleados', now(),'".$_SERVER['REMOTE_ADDR']."');";
+			$result=mysqli_query($conexion,$sql);
+			
+			return $r;
 
 		}
 
@@ -64,8 +75,12 @@
 
 			$newVal = intval($auxNum[0]) + intval($datos[1]);
 			$sql = "UPDATE cantidad_almacen set cantidad =".$newVal." where cantidad_almacen.codigo_producto =".$datos[0];
+			$r = mysqli_query($conexion, $sql);
 			
-		    return mysqli_query($conexion, $sql);
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Update', 'Snacks', now(),'".$_SERVER['REMOTE_ADDR']."');";
+			$result=mysqli_query($conexion,$sql);
+			
+		    return $r;
 		    
 		}
 
@@ -161,7 +176,12 @@
 							cod_empleado =".$datos[5] ;
 
 
-			return mysqli_query($conexion, $sql);
+			$r = mysqli_query($conexion, $sql);
+			
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Update', 'Empleados', now(),'".$_SERVER['REMOTE_ADDR']."');";
+			$result=mysqli_query($conexion,$sql);
+			
+			return $r;
 		}
 
 		function desabilitarEmpleado($pCodEmpleado){
@@ -170,8 +190,12 @@
 	
 			$sql = "UPDATE EMPLEADO SET estado_empleado='INACTIVO' WHERE cod_empleado=".$pCodEmpleado;
 	
-			return mysqli_query($conexion, $sql);
+			$r = mysqli_query($conexion, $sql);
 			
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Delete', 'Empleado', now(),'".$_SERVER['REMOTE_ADDR']."');";
+			$result=mysqli_query($conexion,$sql);
+			
+			return $r;			
 		}
 
 		function habilitarEmpleado($pCodEmpleado){
@@ -179,9 +203,12 @@
 			$conexion = $obj -> conexion();
 	
 			$sql = "UPDATE EMPLEADO SET estado_empleado='ACTIVO' WHERE cod_empleado=".$pCodEmpleado;
-	
-			return mysqli_query($conexion, $sql);
+			$r = mysqli_query($conexion, $sql);
 			
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Update', 'Empleado', now(),'".$_SERVER['REMOTE_ADDR']."');";
+			$result=mysqli_query($conexion,$sql);
+			
+			return $r;
 		}
 
 		function eliminarFuncion($pCodFuncion, $pCodMultiplex){
@@ -197,9 +224,12 @@
 						FUNCION.cod_sala_cine = SALA_CINE.cod_sala_cine AND
 						SALA_CINE.cod_multiplex=".$pCodMultiplex." AND 
 						FUNCION.cod_funcion=".$pCodFuncion;
-
-
-			return mysqli_query($conexion, $sql);		
+			$r = mysqli_query($conexion, $sql);
+			
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Delete', 'Funciones', now(),'".$_SERVER['REMOTE_ADDR']."');";
+			$result=mysqli_query($conexion,$sql);
+			
+			return $r;
 	}
 
 	function desabilitarSala($pCodSala, $pCodMultiplex){
@@ -207,9 +237,12 @@
 		$conexion = $obj -> conexion();
 
 		$sql = "UPDATE SALA_CINE SET estado_sala='INACTIVO' WHERE cod_sala_cine=".$pCodSala." AND cod_multiplex=".$pCodMultiplex;
-
-		return mysqli_query($conexion, $sql);
+		$r = mysqli_query($conexion, $sql);
 		
+		$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Delete', 'Salas', now(),'".$_SERVER['REMOTE_ADDR']."');";
+		$result=mysqli_query($conexion,$sql);
+		
+		return $r;
 	}
 
 	function habilitarSala($pCodSala, $pCodMultiplex){
@@ -217,21 +250,12 @@
 		$conexion = $obj -> conexion();
 
 		$sql = "UPDATE SALA_CINE SET estado_sala='ACTIVO' WHERE cod_sala_cine=".$pCodSala." AND cod_multiplex=".$pCodMultiplex;
-
-		return mysqli_query($conexion, $sql);
+		$r = mysqli_query($conexion, $sql);
 		
+		$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Update', 'Snacks', now(),'".$_SERVER['REMOTE_ADDR']."');";
+		$result=mysqli_query($conexion,$sql);
+		
+		return $r;		
 	}
-
-
-	
-
-
-		
 }
-
-
-	
-	
-
-
  ?>
