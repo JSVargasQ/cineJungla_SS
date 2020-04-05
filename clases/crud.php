@@ -166,10 +166,20 @@
 			return mysqli_query($conexion, $sql);
 		}
 
-
+		function eliminarEmpleado($pCodEmpleado){
+			$obj = new conectar();
+			$conexion = $obj -> conexion();
+	
+			$sql = "UPDATE EMPLEADO SET estado_empleado='INACTIVO' WHERE cod_empleado=".$pCodEmpleado;
+	
+			return mysqli_query($conexion, $sql);
+			
+		}
 	}
 
 
+
+	
 	
 
 

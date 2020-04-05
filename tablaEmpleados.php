@@ -74,7 +74,7 @@ $result=mysqli_query($conexion,$sql);
 					</td>	
 
 					<td>
-						<center><span class="btn btn-warning btn-xs">
+						<center><span class="btn btn-warning btn-xs" onclick="eliminarEmpleado(<?php echo $mostrar[0] ?> )">
 							<span class="fas fa-user-times"></span>
 						</span></center>
 					</td>	

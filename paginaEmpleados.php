@@ -443,6 +443,39 @@
 
   }
 
+  function eliminarEmpleado(pCodEmpleado){
+
+    alertify.confirm('Eliminar empleado', '¿Seguro de eliminar este empleado?', 
+          function(){ 
+            var parametros = {
+                "cod_empleado" : pCodEmpleado,
+            };
+
+            $.ajax({
+
+            type:"POST",
+            data:parametros,
+            url:"procesos/eliminarEmpleado.php",
+            success:function(r){
+              console.log(r);
+              if(r==1){
+
+                alertify.success("Se ha eliminado");
+                $('#tabladatatable').load('tablaEmpleados.php');
+
+              }else{
+                alertify.error("No se ha podido eliminado");
+              }
+
+            }
+
+            });
+          }, 
+          function(){ 
+            
+          });
+  }
+
     
 
   
