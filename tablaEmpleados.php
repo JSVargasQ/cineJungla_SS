@@ -68,8 +68,8 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[5] ?></td>
 
 					<td>
-						<center><span class="btn btn-warning btn-xs">
-							<span class="far fa-edit"></span>
+						<center><span class="btn btn-warning btn-xs" >
+							<span class="far fa-edit" ></span>
 						</span></center>
 					</td>	
 
@@ -86,12 +86,6 @@ $result=mysqli_query($conexion,$sql);
 			?>
 
 		</tbody>
-
-
-
-
-
-
 
 	</table>
 </div>

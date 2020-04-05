@@ -206,7 +206,7 @@
 
   
 
-<!-- Modal -->
+<!-- Modal INSERT -->
 <div class="modal fade" id="agregarFuncion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -254,9 +254,9 @@
                       $result=mysqli_query($conexion,$sql);
 
                       while( $sala = mysqli_fetch_row($result) )
-                  {
-                      echo "<option value=$sala[0]>$sala[1]</option>"; 
-                  }
+                      {
+                          echo "<option value=$sala[0]>$sala[1]</option>"; 
+                      }
                     ?>
                   </select>
                 </td>
@@ -269,7 +269,7 @@
                 </td>
 
                 <td>     
-                  <input type="DATE" id="fecha" name="fecha">
+                  <input type="DATE" id="fecha" name="fecha" min= <?php echo date('Y-m-d'); ?>    >
                 </td>
               </tr>
 
@@ -305,12 +305,110 @@
   </div>
 </div>
 
+
+<!-- Modal UPDATE-->
+<div class="modal fade" id="updateFuncion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar función</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formFuncionU" >
+
+            <table>
+              
+
+                <input type="hidden" value="" name="multiplexU" id="multiplexU">
+                <input type="hidden" value="" name="cod_funcionU" id="cod_funcionU">
+
+
+              <tr>
+                <td>
+                  <label>Pelicula:</label>     
+                </td>
+
+                <td>     
+                  <select name="peliculaU" id="peliculaU">
+
+                    <?php 
+                      $sql = "SELECT cod_pelicula, nombre_pelicula FROM PELICULA";
+                      $result=mysqli_query($conexion,$sql);
+
+                      while( $pelicula = mysqli_fetch_row($result) )
+                      {
+                          echo "<option value=$pelicula[0]>$pelicula[1]</option>"; 
+                      }
+                    ?>
+                  </select>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <label>Sala:</label>     
+                </td>
+
+                <td>     
+                  <select name="salaU" id="salaU">
+
+                    <?php 
+                      $sql = "SELECT cod_sala_cine, nombre_sala FROM SALA_CINE WHERE SALA_CINE.cod_multiplex=$cod_mul";
+                      $result=mysqli_query($conexion,$sql);
+
+                      while( $sala = mysqli_fetch_row($result) )
+                      {
+                          echo "<option value=$sala[0]>$sala[1]</option>"; 
+                      }
+                    ?>
+                  </select>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label>Fecha:</label>     
+                </td>
+
+                <td>     
+                  <input type="DATE" id="fechaU" name="fechaU" min= <?php echo date('Y-m-d'); ?>    >
+                </td>
+              </tr>
+
+
+              <tr>
+                <td>
+                  <label>Hora:</label>     
+                </td>
+
+                <td>     
+                  <input type="TIME" id="horaU" name="horaU">
+                </td>
+              </tr>
+
+            </table>
+        </form> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" id="btnActualizarFuncion" class="btn btn-primary">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 
 </html>
 
 <script type="text/javascript">
   $(document).ready(function(){
+
+
     $('#btnAgregarFuncion').click(function(){
       datos=$('#formFuncion').serialize();
 
@@ -331,8 +429,31 @@
       }); 
 
     });
-  });
 
+    $('#btnActualizarFuncion').click(function(){
+
+      datos=$('#formFuncionU').serialize();
+
+      $.ajax({
+        type:"POST",
+        data:datos,
+        url:"procesos/actualizarFuncion.php",
+        success:function(r){
+          if(r==1){
+            $('#formFuncionU')[0].reset();
+            alertify.success("Función actualizada con exito.");
+            $('#tabladatatable').load('tablaFunciones.php');
+          }
+          else{
+            alertify.error("No se pudo actualizar la función.");
+          }
+        }
+      }); 
+
+    });
+
+
+  });
 
 </script>
             
@@ -344,4 +465,37 @@
   });
 
 
+</script>
+
+<script type="text/javascript">
+  function agregarFormActualizar(cod_funcion, cod_mul){
+
+    var parametros = {
+                "cod_funcion" : cod_funcion,
+                "cod_multiplex" : cod_mul
+        };
+
+    $.ajax({
+
+      type:"POST",
+      data:parametros,
+      url:"procesos/obtenerDatosFuncion.php",
+      success:function(r){
+
+      datos=jQuery.parseJSON(r);
+
+      $('#peliculaU').val(datos['cod_pelicula']);
+      $('#salaU').val(datos['cod_sala']);
+      $('#fechaU').val(datos['fecha']);
+      $('#horaU').val(datos['hora']);
+      $('#multiplexU').val(datos['multiplex']);
+      $('#cod_funcionU').val(datos['cod_funcion']);
+      
+      }
+
+    });
+
+    
+
+  }
 </script>
