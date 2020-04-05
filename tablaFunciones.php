@@ -66,7 +66,7 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[6] ?></td>
 
 					<td>
-						<span class="btn btn-warning btn-xs">
+						<span class="btn btn-warning btn-xs" data-toggle="modal" data-target="#updateFuncion" onclick="agregarFormActualizar(<?php echo $mostrar[0].','.$cod_mul ?> )">
 							<span class="far fa-edit"></span>
 						</span>
 					</td>
@@ -82,12 +82,6 @@ $result=mysqli_query($conexion,$sql);
 			?>
 
 		</tbody>
-
-
-
-
-
-
 
 	</table>
 </div>

@@ -206,5 +206,9 @@
     $('#tabladatatable').load('tablaSalas.php')
   });
 
+</script>
+<script>
+
+
 
 </script>

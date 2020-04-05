@@ -221,7 +221,7 @@
         <table>
           <tr>
             <td><label>Nombre:</label></td>
-            <td><input type="text" id="nombre" name="nombre"></td>
+            <td><input type="text" id="nombre" name="nombre" required ></td>
           </tr>
 
           <tr>
