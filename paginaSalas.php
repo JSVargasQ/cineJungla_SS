@@ -209,6 +209,73 @@
 </script>
 <script>
 
+function desabilitarSala(pCodSala, pCodMultiplex){
 
+    alertify.confirm('Desabilitar sala', '¿Seguro desea desabilitar esta sala?', 
+      function(){ 
+        var parametros = {
+            "cod_sala" : pCodSala,
+            "cod_multiplex" : pCodMultiplex
+        };
+
+        $.ajax({
+
+        type:"POST",
+        data:parametros,
+        url:"procesos/desabilitarSala.php",
+        success:function(r){
+
+          if(r==1){
+
+            alertify.success("Se desabilito");
+            $('#tabladatatable').load('tablaSalas.php');
+
+          }else{
+            alertify.error("No se pudo desabilitar");
+          }
+
+        }
+
+        });
+      }, 
+      function(){ 
+        
+      });
+}
+
+function habilitarSala(pCodSala, pCodMultiplex){
+
+    alertify.confirm('Habilitar sala', '¿Seguro desea habilitar esta sala?', 
+        function(){ 
+          var parametros = {
+              "cod_sala" : pCodSala,
+              "cod_multiplex" : pCodMultiplex
+
+          };
+
+          $.ajax({
+
+          type:"POST",
+          data:parametros,
+          url:"procesos/habilitarSala.php",
+          success:function(r){
+
+            if(r==1){
+
+              alertify.success("Se ha habilitado");
+              $('#tabladatatable').load('tablaSalas.php');
+
+            }else{
+              alertify.error("No se ha podido habilitar");
+            }
+
+          }
+
+          });
+        }, 
+        function(){ 
+          
+        });
+}
 
 </script>

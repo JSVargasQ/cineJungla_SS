@@ -199,8 +199,27 @@
 						FUNCION.cod_funcion=".$pCodFuncion;
 
 
-			return mysqli_query($conexion, $sql);
-			
+			return mysqli_query($conexion, $sql);		
+	}
+
+	function desabilitarSala($pCodSala, $pCodMultiplex){
+		$obj = new conectar();
+		$conexion = $obj -> conexion();
+
+		$sql = "UPDATE SALA_CINE SET estado_sala='INACTIVO' WHERE cod_sala_cine=".$pCodSala." AND cod_multiplex=".$pCodMultiplex;
+
+		return mysqli_query($conexion, $sql);
+		
+	}
+
+	function habilitarSala($pCodSala, $pCodMultiplex){
+		$obj = new conectar();
+		$conexion = $obj -> conexion();
+
+		$sql = "UPDATE SALA_CINE SET estado_sala='ACTIVO' WHERE cod_sala_cine=".$pCodSala." AND cod_multiplex=".$pCodMultiplex;
+
+		return mysqli_query($conexion, $sql);
+		
 	}
 
 

@@ -233,7 +233,7 @@
                   <select name="pelicula" id="pelicula">
 
                     <?php 
-                      $sql = "SELECT cod_pelicula, nombre_pelicula FROM PELICULA";
+                      $sql = "SELECT cod_pelicula, nombre_pelicula FROM PELICULA WHERE estado_pelicula='ACTIVO'";
                       $result=mysqli_query($conexion,$sql);
 
                       while( $pelicula = mysqli_fetch_row($result) )
@@ -254,7 +254,7 @@
                   <select name="sala" id="sala">
 
                     <?php 
-                      $sql = "SELECT cod_sala_cine, nombre_sala FROM SALA_CINE WHERE SALA_CINE.cod_multiplex=$cod_mul";
+                      $sql = "SELECT cod_sala_cine, nombre_sala FROM SALA_CINE WHERE SALA_CINE.cod_multiplex=".$cod_mul." AND SALA_CINE.estado_sala='ACTIVO'";
                       $result=mysqli_query($conexion,$sql);
 
                       while( $sala = mysqli_fetch_row($result) )
@@ -339,7 +339,7 @@
                   <select name="peliculaU" id="peliculaU">
 
                     <?php 
-                      $sql = "SELECT cod_pelicula, nombre_pelicula FROM PELICULA";
+                      $sql = "SELECT cod_pelicula, nombre_pelicula FROM PELICULA WHERE estado_pelicula='ACTIVO'";
                       $result=mysqli_query($conexion,$sql);
 
                       while( $pelicula = mysqli_fetch_row($result) )
@@ -360,7 +360,7 @@
                   <select name="salaU" id="salaU">
 
                     <?php 
-                      $sql = "SELECT cod_sala_cine, nombre_sala FROM SALA_CINE WHERE SALA_CINE.cod_multiplex=$cod_mul";
+                      $sql = "SELECT cod_sala_cine, nombre_sala FROM SALA_CINE WHERE SALA_CINE.cod_multiplex=".$cod_mul." AND SALA_CINE.estado_sala='ACTIVO'";
                       $result=mysqli_query($conexion,$sql);
 
                       while( $sala = mysqli_fetch_row($result) )

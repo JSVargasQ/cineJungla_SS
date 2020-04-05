@@ -9,7 +9,7 @@ $conexion=$obj->conexion();
 $cod_mul = 2;
 
 $sql="	SELECT 
-			MULTIPLEX.nom_multiplex, SALA_CINE.cod_sala_cine, SALA_CINE.nombre_sala 
+			MULTIPLEX.nom_multiplex, SALA_CINE.cod_sala_cine, SALA_CINE.nombre_sala, SALA_CINE.estado_sala ,MULTIPLEX.cod_multiplex
 		FROM 
 			MULTIPLEX, SALA_CINE 
 		WHERE 
@@ -28,6 +28,7 @@ $result=mysqli_query($conexion,$sql);
 				<td>MULTIPLEX</td>
 				<td>CODIGO</td>
 				<td>NOMBRE</td>
+				<td>ESTADO</td>
 				<td>ACCIÓN</td>
 			</tr>
 		</thead>
@@ -36,6 +37,7 @@ $result=mysqli_query($conexion,$sql);
 				<td>MULTIPLEX</td>
 				<td>CODIGO</td>
 				<td>NOMBRE</td>
+				<td>ESTADO</td>
 				<td>ACCIÓN</td>
 			</tr>
 		</tfoot>
@@ -47,27 +49,20 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[0] ?></td>
 					<td><?php echo $mostrar[1] ?></td>
 					<td><?php echo $mostrar[2] ?></td>
+					<td><?php echo $mostrar[3] ?></td>
 					
 
-					<?php 
-						$icon = "";
-
-						if( !strcasecmp($mostrar[2], "ACTIVO") == 0 )
-						{
-							$icon = "far fa-window-close";
-						}
-						else
-						{
-							$icon = "fas fa-check";
-						}
-
-					?>
-
 					<td>
-						<span class="btn btn-warning btn-xs">
-							<?php echo "<span class='$icon'></span>";  ?>
-							
-						</span>
+						<?php if( strcasecmp($mostrar[3], "ACTIVO") == 0  ){ ?>
+							<span class="btn btn-warning btn-xs" onclick="desabilitarSala(<?php echo $mostrar[1]; echo ','; echo $mostrar[4]; ?> )">
+								<span class="far fa-window-close""></span>
+							</span>
+						<?php  } else { ?>
+							<span class="btn btn-warning btn-xs" onclick="habilitarSala(  <?php echo $mostrar[1]; echo ','; echo $mostrar[4]; ?> )">
+								<span class="fas fa-check"></span>
+							</span>
+						<?php } ?>
+
 					</td>	
 
 					
