@@ -44,9 +44,7 @@
 			$sql = "UPDATE cantidad_almacen set cantidad =".$newVal." where cantidad_almacen.codigo_producto =".$datos[0];
 			
 		    return mysqli_query($conexion, $sql);
-		    
 		}
-
 
 		public function obtenerDatosFuncion($pCodFuncion, $pCodMultiplex){
 
@@ -77,15 +75,7 @@
 						'sillas_disponibles' => $ver[5], 
 						'estado_funcion' => $ver[6]
 					);
-					
 					return $datos;
-
-
 		} 
 	}
-
-
-	
-
-
  ?>

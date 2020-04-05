@@ -59,7 +59,14 @@
           </li>
           <li>
             <a href="paginaSnacks.php">
-              <i class="now-ui-icons education_atom"></i>
+              <i class="now-ui-icons education_atom">
+              <?php 
+              	$conexion=$obj->conexion();
+              	$fecha = date('d-m-Y H:i:s');
+              	$sql= "insert into AUDITORIA (cod_auditoria, cod_usuario, nombre_cargo_empleado, accion, fecha_modificacion, ip_modificacion); values (null, 1010103, 'DIRECTOR', Read, ".$fecha.",".$_SERVER['REMOTE_ADDR'].")";
+                $result=mysqli_query($conexion,$sql);
+              ?>
+              </i>
               <p>GESTI&Oacute;N DE SNACKS</p>
             </a>
           </li>
@@ -205,12 +212,3 @@
     </div>
   </div>
 </body>
-
-</html>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#tabladatatable').load('tabla.php');
-  });
-
-
-</script>

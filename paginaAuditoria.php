@@ -153,11 +153,9 @@
           <div class="col-sm-12">
             <div class="card text-left">
               <div class="card-header">
-                TABLA SNACKS
+                TABLA AUDITORIA
               </div>
               <div class="card-body">
-                <span class="btn btn-primary" data-toggle="modal" data-target="#agregarSnack"> Agregar snack <i class="fas fa-user-plus"></i>
-                </span>
                
 
                 <hr>
@@ -206,84 +204,13 @@
     </div>
   </div>
   
-  <div class="modal fade" id="agregarSnack" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Agregar snack</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="formSnack">
-        <table>
-          <tr>
-            <td><label>Snack:</label></td>
-            <td><select name="codigo" id="codigo">
-
-                    <?php 
-                      $sql = "SELECT codigo_producto, producto FROM cantidad_almacen";
-                      $result=mysqli_query($conexion,$sql);
-
-                      while( $codSnack = mysqli_fetch_row($result) )
-                  {
-                      echo "<option value=$codSnack[0]>$codSnack[1]</option>"; 
-                  }
-                    ?>
-                  </select></td>
-          </tr>
-          
-          <tr>
-            <td><label>Cantidad</label></td>
-            <td><input type="number" name="cantidad" id="cantidad" min="0" max=100/></td>
-          </tr>
-
-        </table>
-
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" id="btnAgregarSnack" class="btn btn-primary">Agregar</button>
-      </div>
-    </div>
-  </div>
-</div>
-  
 </body>
 </html>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#btnAgregarSnack').click(function(){
-      datos=$('#formSnack').serialize();
-
-    $.ajax({
-        type:"POST",
-        data:datos,
-        url:"procesos/agregarSnack.php",
-        success:function(r){
-          if(r==1){
-            $('#formSnack')[0].reset();
-            alertify.success("Agregado con exito.");
-            $('#tabladatatable').load('tablaSnacks.php');
-          }
-          else{
-            alertify.error("No se pudo agregar el snack");
-          }
-        }
-      }); 
-
-    });
-  });
-
-  </script>
   
 <script type="text/javascript">
   $(document).ready(function()
 	{
-    $('#tabladatatable').load('tablaSnacks.php')
+    $('#tabladatatable').load('tablaAuditoria.php')
   });
 
 
