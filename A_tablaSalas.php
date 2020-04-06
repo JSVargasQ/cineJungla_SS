@@ -54,7 +54,7 @@ $result=mysqli_query($conexion,$sql);
 
 					<td>
 						<?php if( strcasecmp($mostrar[3], "ACTIVO") == 0  ){ ?>
-							<span class="btn btn-warning btn-xs" onclick="desabilitarSala(<?php echo $mostrar[1]; echo ','; echo $mostrar[4]; ?> )">
+							<span class="btn btn-warning btn-xs" onclick="deshabilitarSala(<?php echo $mostrar[1]; echo ','; echo $mostrar[4]; ?> )">
 								<span class="far fa-window-close""></span>
 							</span>
 						<?php  } else { ?>

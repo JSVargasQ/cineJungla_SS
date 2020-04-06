@@ -14,7 +14,7 @@ if(isset($_SESSION['user'])){
 		if($tipo==2){
 		header('location: tablaProductos.php');
 		}else if($tipo==1){
-			echo "mandar a la de director ";
+		header("location: A_paginaIndex.php");
 		}else if($tipo==6){
 			echo "mandar a la de global";
 		}
@@ -27,16 +27,17 @@ if(isset($_SESSION['user'])){
 		echo "usuario validado";
 		$userSession->setCurrentUser($userForm);
 		$user->setUser($userForm);
+		$tipo=$user->getTipoUsuario();
 		if($tipo==2){
 		header('location: tablaProductos.php');
 		}else if($tipo==1){
-			echo "mandar a la de director ";
+		header("location: A_paginaIndex.php");
 		}else if($tipo==6){
 			echo "mandar a la de global";
 		}
 
 	}else{
-		$errorEntrada="nombre de usuario o contraseña incorrecto";
+		$errorEntrada ="nombre de usuario o contraseña incorrecto";
 		include_once 'login.php';
 	}
 }else{

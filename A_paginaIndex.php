@@ -28,7 +28,22 @@
     <?php   
         require_once "scripts.php";
         require_once "clases/conexion.php";
+        include_once 'controlador/user.php';
+        include_once 'controlador/user_Sesion.php';
+        
         $obj=new conectar();
+        $conexion=$obj->conexion();
+        
+        $userSession = new UserSession();
+        $user = new Usuario();
+        
+        if(!isset($_SESSION['user']))
+            {
+                header("location: index.php");
+            }
+            
+        $user->setUser($userSession->getCurrentUser());
+        $cod_mul = $user->getCodigoMul();
     ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -108,8 +123,7 @@
             <a class="navbar-brand" style="font-size:3 ">
             <?php 
                 $conexion=$obj->conexion();
-                $var =2;
-                $sql="SELECT nom_multiplex FROM MULTIPLEX where MULTIPLEX.cod_multiplex = $var";
+                $sql="SELECT nom_multiplex FROM MULTIPLEX where MULTIPLEX.cod_multiplex = $cod_mul";
                 $result=mysqli_query($conexion,$sql);
                 
                 while($row = $result->fetch_assoc())
@@ -138,7 +152,7 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="tabla.php">Cerrar sesi&oacute;n</a>
+                  <a class="dropdown-item" href="controlador/logout.php">Cerrar sesi&oacute;n</a>
                 </div>
               </li>
             </ul>
@@ -159,14 +173,9 @@
               
               <div class="card-body" align="center">
                 <?php 
-                $conexion=$obj->conexion();
-                $sql="SELECT nombre_empleado FROM empleado where EMPLEADO.cod_usuario = 1010103";
-                $result=mysqli_query($conexion,$sql);
+                $nom_empleado = $user->getNombre();
                 
-                while($row = $result->fetch_assoc())
-                {
-                    echo '<br><br><br><br><br><br><br><br><br><br><br><center><h1>'."Bienvenido, ". $row['nombre_empleado'] . '</h1></center><br><br><br><br><br><br><br><br><br><br><br>';
-                }
+                echo '<br><br><br><br><br><br><br><br><br><br><br><center><h1>'."Bienvenido, ". $nom_empleado . '</h1></center><br><br><br><br><br><br><br><br><br><br><br>';
                 ?>
             </div>
             

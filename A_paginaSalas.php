@@ -25,12 +25,31 @@
   <title>
     ADMINISTRADOR LOCAL
   </title>
-    <?php   
+    <?php 
     require_once "scripts.php";
     require_once "clases/conexion.php";
+    include_once 'controlador/user.php';
+    include_once 'controlador/user_Sesion.php';
+    
     $obj=new conectar();
     $conexion=$obj->conexion();
-    $sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Read', 'Salas', now(),'".$_SERVER['REMOTE_ADDR']."');";
+    
+    $userSession = new UserSession();
+    $user = new Usuario();
+    
+    if(!isset($_SESSION['user']))
+    {
+        header("location: index.php");
+    }
+    
+    $user->setUser($userSession->getCurrentUser());
+    $cod_mul = $user->getCodigoMul();
+    $cod_usuario = $user->getCodUsuario();
+    $nom_c_empleado = $user->getNomTUsuario();
+    $host= gethostname();
+    $ip = gethostbyname($host);
+    
+    $sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$cod_usuario.", '".$nom_c_empleado."', 'Read', 'Salas', now(),'".$ip."');";
     $result=mysqli_query($conexion,$sql);
     ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -111,8 +130,7 @@
             <a class="navbar-brand" style="font-size:3 ">
             <?php 
                 $conexion=$obj->conexion();
-                $var =2;
-                $sql="SELECT nom_multiplex FROM MULTIPLEX where MULTIPLEX.cod_multiplex = $var";
+                $sql="SELECT nom_multiplex FROM MULTIPLEX where MULTIPLEX.cod_multiplex = $cod_mul";
                 $result=mysqli_query($conexion,$sql);
                 
                 while($row = $result->fetch_assoc())
@@ -141,7 +159,7 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="tabla.php">Cerrar sesi&oacute;n</a>
+                  <a class="dropdown-item" href="controlador/logout.php">Cerrar sesi&oacute;n</a>
                 </div>
               </li>
             </ul>
@@ -218,7 +236,7 @@
 </script>
 <script>
 
-function desabilitarSala(pCodSala, pCodMultiplex){
+function deshabilitarSala(pCodSala, pCodMultiplex){
 
     alertify.confirm('Deshabilitar sala', '¿Seguro desea deshabilitar esta sala?', 
       function(){ 
@@ -233,7 +251,6 @@ function desabilitarSala(pCodSala, pCodMultiplex){
         data:parametros,
         url:"procesos/desabilitarSala.php",
         success:function(r){
-
           if(r==1){
 
             alertify.success("Se deshabilito");
@@ -273,7 +290,6 @@ function habilitarSala(pCodSala, pCodMultiplex){
 
               alertify.success("Se ha habilitado");
               $('#tabladatatable').load('A_tablaSalas.php');
-
             }else{
               alertify.error("No se ha podido habilitar");
             }

@@ -4,6 +4,6 @@
     require_once "../clases/A_crud.php";
     $obj= new A_crud();
 
-    echo $obj->desabilitarSala( $_POST['cod_sala'], $_POST['cod_multiplex']);
+    echo $obj->deshabilitarSala( $_POST['cod_sala'], $_POST['cod_multiplex']);
     
 ?>

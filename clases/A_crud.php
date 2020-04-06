@@ -1,9 +1,31 @@
 <?php 
 
-	class A_crud{
+include_once '../controlador/user.php';
+include_once '../controlador/user_Sesion.php';
 
-		public function agregarFuncion($datos){
-		
+	class A_crud{
+	    
+	    private $cod_usuario;
+	    private $nom_c_empleado;
+	    private $ip;
+	    
+	    public function __construct()
+	    {
+	        $userSession = new UserSession();
+	        $user = new Usuario();
+	        $user->setUser($userSession->getCurrentUser());
+	        $cod_usuario = $user->getCodUsuario();
+	        $nom_c_empleado = $user->getNomTUsuario();
+	        $host= gethostname();
+	        $ip = gethostbyname($host);
+	        $this->cod_usuario = $cod_usuario;
+	        $this->nom_c_empleado = $nom_c_empleado;
+	        $this->ip = $ip;
+	    }
+	    
+	    public function agregarFuncion($datos)
+		{
+		    
 			$obj = new conectar();
 			$conexion = $obj -> conexion();
 
@@ -14,8 +36,8 @@
 			$sql = "CALL INGRESAR_FUNCIONES($datos[0],$datos[1],$datos[2],'$fecha')";
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Insert', 'Funciones', now(),'".$_SERVER['REMOTE_ADDR']."');";
-			$result=mysqli_query($conexion,$sql);
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Create', 'Funciones', now(),'".$this->ip."');";
+			mysqli_query($conexion,$sql);
 			
 			return $r;
 		}
@@ -41,8 +63,8 @@
 
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Update', 'Funciones', now(),'".$_SERVER['REMOTE_ADDR']."');";
-			$result=mysqli_query($conexion,$sql);
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Funciones', now(),'".$this->ip."');";
+			mysqli_query($conexion,$sql);
 			
 			return $r;
 		}
@@ -57,8 +79,8 @@
 			$sql = "INSERT INTO EMPLEADO VALUES(NULL,'".$datos[0]."',".$datos[1].",'".$fecha."',".$datos[2].",".$datos[3].",".$datos[4].",'".$datos[5]."','ACTIVO')";
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Insert', 'Empleados', now(),'".$_SERVER['REMOTE_ADDR']."');";
-			$result=mysqli_query($conexion,$sql);
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Create', 'Empleado', now(),'".$this->ip."');";
+			mysqli_query($conexion,$sql);
 			
 			return $r;
 
@@ -77,8 +99,8 @@
 			$sql = "UPDATE cantidad_almacen set cantidad =".$newVal." where cantidad_almacen.codigo_producto =".$datos[0];
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Update', 'Snacks', now(),'".$_SERVER['REMOTE_ADDR']."');";
-			$result=mysqli_query($conexion,$sql);
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Snack', now(),'".$this->ip."');";
+			mysqli_query($conexion,$sql);
 			
 		    return $r;
 		    
@@ -178,13 +200,13 @@
 
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Update', 'Empleados', now(),'".$_SERVER['REMOTE_ADDR']."');";
-			$result=mysqli_query($conexion,$sql);
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Empleado', now(),'".$this->ip."');";
+			mysqli_query($conexion,$sql);
 			
 			return $r;
 		}
 
-		function desabilitarEmpleado($pCodEmpleado){
+		function deshabilitarEmpleado($pCodEmpleado){
 			$obj = new conectar();
 			$conexion = $obj -> conexion();
 	
@@ -192,8 +214,8 @@
 	
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Delete', 'Empleado', now(),'".$_SERVER['REMOTE_ADDR']."');";
-			$result=mysqli_query($conexion,$sql);
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Delete', 'Empleado', now(),'".$this->ip."');";
+			mysqli_query($conexion,$sql);
 			
 			return $r;			
 		}
@@ -205,8 +227,8 @@
 			$sql = "UPDATE EMPLEADO SET estado_empleado='ACTIVO' WHERE cod_empleado=".$pCodEmpleado;
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Update', 'Empleado', now(),'".$_SERVER['REMOTE_ADDR']."');";
-			$result=mysqli_query($conexion,$sql);
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Empleado', now(),'".$this->ip."');";
+			mysqli_query($conexion,$sql);
 			
 			return $r;
 		}
@@ -226,21 +248,21 @@
 						FUNCION.cod_funcion=".$pCodFuncion;
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Delete', 'Funciones', now(),'".$_SERVER['REMOTE_ADDR']."');";
-			$result=mysqli_query($conexion,$sql);
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Delete', 'Funciones', now(),'".$this->ip."');";
+			mysqli_query($conexion,$sql);
 			
 			return $r;
 	}
 
-	function desabilitarSala($pCodSala, $pCodMultiplex){
+	function deshabilitarSala($pCodSala, $pCodMultiplex){
 		$obj = new conectar();
 		$conexion = $obj -> conexion();
 
 		$sql = "UPDATE SALA_CINE SET estado_sala='INACTIVO' WHERE cod_sala_cine=".$pCodSala." AND cod_multiplex=".$pCodMultiplex;
 		$r = mysqli_query($conexion, $sql);
 		
-		$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Delete', 'Salas', now(),'".$_SERVER['REMOTE_ADDR']."');";
-		$result=mysqli_query($conexion,$sql);
+		$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Salas', now(),'".$this->ip."');";
+		mysqli_query($conexion,$sql);
 		
 		return $r;
 	}
@@ -252,8 +274,8 @@
 		$sql = "UPDATE SALA_CINE SET estado_sala='ACTIVO' WHERE cod_sala_cine=".$pCodSala." AND cod_multiplex=".$pCodMultiplex;
 		$r = mysqli_query($conexion, $sql);
 		
-		$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (1010103, 'DIRECTOR', 'Update', 'Snacks', now(),'".$_SERVER['REMOTE_ADDR']."');";
-		$result=mysqli_query($conexion,$sql);
+		$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Salas', now(),'".$this->ip."');";
+		mysqli_query($conexion,$sql);
 		
 		return $r;		
 	}
