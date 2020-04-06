@@ -267,7 +267,7 @@
             <td><select name="tipo" id="tipo">
 
                     <?php 
-                      $sql = "SELECT cod_tipo_empleado, nombre_cargo_empleado FROM cargo_empleado";
+                      $sql = "SELECT cod_tipo_empleado, nombre_cargo_empleado FROM cargo_empleado  WHERE cod_tipo_empleado != 1 AND cod_tipo_empleado != 6";
                       $result=mysqli_query($conexion,$sql);
 
                       while( $cargoEmpl = mysqli_fetch_row($result) )
@@ -335,11 +335,11 @@
             <td><select name="tipoU" id="tipoU">
 
                     <?php 
-                      $sql = "SELECT cod_tipo_empleado, nombre_cargo_empleado FROM cargo_empleado";
+                      $sql = "SELECT cod_tipo_empleado, nombre_cargo_empleado FROM cargo_empleado WHERE cod_tipo_empleado != 1 AND cod_tipo_empleado != 6";
                       $result=mysqli_query($conexion,$sql);
 
                       while( $cargoEmpl = mysqli_fetch_row($result) )
-                  {
+                  {  
                       echo "<option value=$cargoEmpl[0]>$cargoEmpl[1]</option>"; 
                   }
                     ?>

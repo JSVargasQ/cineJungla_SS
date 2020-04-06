@@ -273,7 +273,6 @@
                   <select name="sala" id="sala">
 
                     <?php 
-                      $cod_mul = 2;
                       $sql = "SELECT cod_sala_cine, nombre_sala FROM SALA_CINE WHERE SALA_CINE.cod_multiplex=".$cod_mul." AND SALA_CINE.estado_sala='ACTIVO'";
                       $result=mysqli_query($conexion,$sql);
 
