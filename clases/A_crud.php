@@ -197,7 +197,7 @@ include_once '../controlador/user_Sesion.php';
 							nombre_empleado='".$datos[0]."',
 							salario_empleado=".$datos[1].",
 							cod_tipo_empleado=".$datos[2].",
-							correo_empleado='".$datos[3]."',
+							correo_empleado='".$datos[3]."'
 					WHERE
 							cod_empleado =".$datos[4] ;
 
