@@ -225,7 +225,7 @@
 <script type="text/javascript">
   $(document).ready(function()
 	{
-    $('#tabladatatable').load('A_tablaAuditoria.php')
+    $('#tabladatatable').load('A_tablas/A_tablaAuditoria.php')
   });
 
 

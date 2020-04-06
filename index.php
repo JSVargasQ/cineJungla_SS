@@ -16,7 +16,7 @@ if(isset($_SESSION['user'])){
 		}else if($tipo==1){
 		header("location: A_paginaIndex.php");
 		}else if($tipo==6){
-			echo "mandar a la de global";
+		header("location: G_paginaIndex.php");
 		}
 	
 }else if(isset($_POST['username']) && isset($_POST['password'])){
@@ -33,7 +33,7 @@ if(isset($_SESSION['user'])){
 		}else if($tipo==1){
 		header("location: A_paginaIndex.php");
 		}else if($tipo==6){
-			echo "mandar a la de global";
+		header("location: G_paginaIndex.php");
 		}
 
 	}else{

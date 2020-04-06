@@ -443,7 +443,7 @@
           if(r==1){
             $('#formFuncion')[0].reset();
             alertify.success("Agregado con exito.");
-            $('#tabladatatable').load('A_tablaFunciones.php');
+            $('#tabladatatable').load('A_tablas/A_tablaFunciones.php');
           }
           else{
             alertify.error("No se pudo agregar la función.");
@@ -465,7 +465,7 @@
           if(r==1){
             $('#formFuncionU')[0].reset();
             alertify.success("Función actualizada con exito.");
-            $('#tabladatatable').load('A_tablaFunciones.php');
+            $('#tabladatatable').load('A_tablas/A_tablaFunciones.php');
           }
           else{
             alertify.error("No se pudo actualizar la función.");
@@ -484,7 +484,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#tabladatatable').load('A_tablaFunciones.php');
+    $('#tabladatatable').load('A_tablas/A_tablaFunciones.php');
   });
 
 
@@ -539,7 +539,7 @@
             if(r==1){
 
               alertify.success("Se ha eliminado la función");
-              $('#tabladatatable').load('A_tablaFunciones.php');
+              $('#tabladatatable').load('A_tablas/A_tablaFunciones.php');
             }else{
               alertify.error("No se ha podido eliminar");
             }

@@ -178,7 +178,6 @@ include_once '../controlador/user_Sesion.php';
 						'cod_usuario' => $ver[2], 
 						'cod_tipo_empleado' => $ver[3],
 						'correo_empleado' => $ver[4],
-						'fecha_ingreso' => substr($ver[5], 0,10),
 						'cod_empleado' => $pCodEmpleado
 
 					);
@@ -191,8 +190,6 @@ include_once '../controlador/user_Sesion.php';
 		
 			$obj = new conectar();
 			$conexion = $obj -> conexion();
-			
-			$fecha = $datos[4]." 00:00:00"; 
 
 			$sql = "UPDATE 
 							EMPLEADO
@@ -201,9 +198,8 @@ include_once '../controlador/user_Sesion.php';
 							salario_empleado=".$datos[1].",
 							cod_tipo_empleado=".$datos[2].",
 							correo_empleado='".$datos[3]."',
-							fecha_ingreso_empleado='".$fecha."'
 					WHERE
-							cod_empleado =".$datos[5] ;
+							cod_empleado =".$datos[4] ;
 
 
 			$r = mysqli_query($conexion, $sql);

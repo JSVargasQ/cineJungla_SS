@@ -2,9 +2,9 @@
 header('Content-Type: text/html; charset=UTF-8');
 ?>
 <?php 
-require_once "./clases/conexion.php";
-include_once 'controlador/user.php';
-include_once 'controlador/user_Sesion.php';
+require_once "../clases/conexion.php";
+include_once '../controlador/user.php';
+include_once '../controlador/user_Sesion.php';
 
 $obj=new conectar();
 $conexion=$obj->conexion();
@@ -15,7 +15,7 @@ $user->setUser($userSession->getCurrentUser());
     $cod_mul = $user->getCodigoMul();
 
 $sql="	SELECT 
-			MULTIPLEX.nom_multiplex, SALA_CINE.cod_sala_cine, SALA_CINE.nombre_sala, SALA_CINE.estado_sala ,MULTIPLEX.cod_multiplex
+			SALA_CINE.cod_sala_cine, SALA_CINE.nombre_sala, SALA_CINE.estado_sala ,MULTIPLEX.cod_multiplex
 		FROM 
 			MULTIPLEX, SALA_CINE 
 		WHERE 
@@ -31,7 +31,6 @@ $result=mysqli_query($conexion,$sql);
 	<table class="table table-hover table-condensed" id="iddatatable">
 		<thead style="background-color: #4f944a;color: white; font-weight: bold;">
 			<tr>
-				<td>MULTIPLEX</td>
 				<td>CODIGO</td>
 				<td>NOMBRE</td>
 				<td>ESTADO</td>
@@ -40,7 +39,6 @@ $result=mysqli_query($conexion,$sql);
 		</thead>
 		<tfoot style="background-color: #ccc;color: white; font-weight: bold;">
 			<tr>
-				<td>MULTIPLEX</td>
 				<td>CODIGO</td>
 				<td>NOMBRE</td>
 				<td>ESTADO</td>
@@ -55,15 +53,15 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[0] ?></td>
 					<td><?php echo $mostrar[1] ?></td>
 					<td><?php echo $mostrar[2] ?></td>
-					<td><?php echo $mostrar[3] ?></td>
 					
 
 					<td>
-						<?php if( strcasecmp($mostrar[3], "ACTIVO") == 0  ){ ?>
-							<span class="btn btn-danger btn-xs" onclick="deshabilitarSala(<?php echo $mostrar[1]; echo ','; echo $mostrar[4]; ?> )">
-								<span class="fas fa-minus-circle""></span>
+						<?php if( strcasecmp($mostrar[2], "ACTIVO") == 0  ){ ?>
+							<span class="btn btn-danger btn-xs" onclick="deshabilitarSala(<?php echo $mostrar[0]; echo ','; echo $mostrar[3]; ?> )">
+								<span class="fas fa-minus-circle"></span>
+							</span>
 						<?php  } else { ?>
-							<span class="btn btn-success btn-xs" onclick="habilitarSala(  <?php echo $mostrar[1]; echo ','; echo $mostrar[4]; ?> )">
+							<span class="btn btn-success btn-xs" onclick="habilitarSala(  <?php echo $mostrar[0]; echo ','; echo $mostrar[3]; ?> )">
 								<span class="fas fa-check"></span>
 							</span>
 						<?php } ?>

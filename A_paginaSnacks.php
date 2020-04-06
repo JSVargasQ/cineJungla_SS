@@ -263,7 +263,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" id="btnAgregarSnack" class="btn btn-success">Agregar</button>
+        <button type="button" id="btnAgregarSnack" class="btn btn-primary">Agregar</button>
       </div>
     </div>
   </div>
@@ -286,7 +286,7 @@
           if(r==1){
             $('#formSnack')[0].reset();
             alertify.success("Agregado con exito.");
-            $('#tabladatatable').load('A_tablaSnacks.php');
+            $('#tabladatatable').load('A_tablas/A_tablaSnacks.php');
           }
           else{
             alertify.error("No se pudo agregar el snack");
@@ -302,7 +302,7 @@
 <script type="text/javascript">
   $(document).ready(function()
 	{
-    $('#tabladatatable').load('A_tablaSnacks.php')
+    $('#tabladatatable').load('A_tablas/A_tablaSnacks.php')
   });
 
 

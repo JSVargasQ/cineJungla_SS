@@ -10,7 +10,6 @@
         $_POST['salarioU'],
         $_POST['tipoU'],
         $_POST['correoU'],
-        $_POST['fechaU'],
         $_POST['cod_empleadoU']
         
 

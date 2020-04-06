@@ -352,9 +352,6 @@
             <td><input type="text" id="correoU"  name="correoU"></td>
           </tr>
 
-            <td><label>Fecha de ingreso:</label></td>
-            <td><input type="DATE" id="fechaU" name="fechaU"></td>
-
         </table>
 
         </form>
@@ -388,7 +385,7 @@
           if(r==1){
             $('#formEmpleado')[0].reset();
             alertify.success("Agregado con exito.");
-            $('#tabladatatable').load('A_tablaEmpleados.php');
+            $('#tabladatatable').load('A_tablas/A_tablaEmpleados.php');
           }
           
           else{
@@ -412,7 +409,7 @@
           if(r==1){
             $('#formEmpleadoU')[0].reset();
             alertify.success("Actualizado con exito.");
-            $('#tabladatatable').load('A_tablaEmpleados.php');
+            $('#tabladatatable').load('A_tablas/A_tablaEmpleados.php');
             
           }
           else{
@@ -432,7 +429,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#tabladatatable').load('A_tablaEmpleados.php');
+    $('#tabladatatable').load('A_tablas/A_tablaEmpleados.php');
   });
 
 
@@ -460,7 +457,6 @@
       $('#salarioU').val(datos['salario_empleado']);
       $('#tipoU').val(datos['cod_tipo_empleado']);
       $('#correoU').val(datos['correo_empleado']);
-      $('#fechaU').val(datos['fecha_ingreso']);
       
       }
 
@@ -486,7 +482,7 @@
               if(r==1){
 
                 alertify.success("Se deshabilito");
-                $('#tabladatatable').load('A_tablaEmpleados.php');
+                $('#tabladatatable').load('A_tablas/A_tablaEmpleados.php');
 
               }else{
                 alertify.error("No se pudo deshabilitar");
@@ -519,7 +515,7 @@
             if(r==1){
 
               alertify.success("Se ha habilitado");
-              $('#tabladatatable').load('A_tablaEmpleados.php');
+              $('#tabladatatable').load('A_tablas/A_tablaEmpleados.php');
 
             }else{
               alertify.error("No se ha podido habilitar");

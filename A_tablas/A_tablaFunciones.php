@@ -3,9 +3,9 @@ header('Content-Type: text/html; charset=UTF-8');
 ?>
 <?php 
 
-	require_once "clases/conexion.php";
-    include_once 'controlador/user.php';
-	include_once 'controlador/user_Sesion.php';
+	require_once "../clases/conexion.php";
+    include_once '../controlador/user.php';
+	include_once '../controlador/user_Sesion.php';
 	
 $obj=new conectar();
 $conexion=$obj->conexion();

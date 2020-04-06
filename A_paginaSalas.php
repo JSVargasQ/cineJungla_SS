@@ -230,7 +230,7 @@
 </html>
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#tabladatatable').load('A_tablaSalas.php')
+    $('#tabladatatable').load('A_tablas/A_tablaSalas.php')
   });
 
 </script>
@@ -254,7 +254,7 @@ function deshabilitarSala(pCodSala, pCodMultiplex){
           if(r==1){
 
             alertify.success("Se deshabilito");
-            $('#tabladatatable').load('A_tablaSalas.php');
+            $('#tabladatatable').load('A_tablas/A_tablaSalas.php');
 
           }else{
             alertify.error("No se pudo deshabilitar");
@@ -289,7 +289,7 @@ function habilitarSala(pCodSala, pCodMultiplex){
             if(r==1){
 
               alertify.success("Se ha habilitado");
-              $('#tabladatatable').load('A_tablaSalas.php');
+              $('#tabladatatable').load('A_tablas/A_tablaSalas.php');
             }else{
               alertify.error("No se ha podido habilitar");
             }

@@ -2,9 +2,9 @@
 header('Content-Type: text/html; charset=UTF-8');
 ?>
 <?php 
-require_once "./clases/conexion.php";
-include_once 'controlador/user.php';
-include_once 'controlador/user_Sesion.php';
+require_once "../clases/conexion.php";
+include_once '../controlador/user.php';
+include_once '../controlador/user_Sesion.php';
 $obj=new conectar();
 $conexion=$obj->conexion();
 
@@ -14,7 +14,7 @@ $user->setUser($userSession->getCurrentUser());
     $cod_mul = $user->getCodigoMul();
 
 $sql="	SELECT 
-			cod_empleado, nombre_empleado, nom_multiplex, nombre_cargo_empleado , fecha_ingreso_empleado , estado_empleado, EMPLEADO.cod_tipo_empleado
+			cod_empleado, nombre_empleado, nombre_cargo_empleado , fecha_ingreso_empleado , estado_empleado, EMPLEADO.cod_tipo_empleado
 		FROM 
 			empleado, multiplex, cargo_empleado
 		WHERE
@@ -32,7 +32,6 @@ $result=mysqli_query($conexion,$sql);
 			<tr>
 				<td>CODIGO</td>
 				<td>NOMBRE</td>
-				<td>MULTIPLEX</td>
 				<td>TIPO</td>
 				<td>INGRESO</td>
 				<td>ESTADO</td>
@@ -44,7 +43,6 @@ $result=mysqli_query($conexion,$sql);
 			<tr>
 				<td>CODIGO</td>
 				<td>NOMBRE</td>
-				<td>MULTIPLEX</td>
 				<td>TIPO</td>
 				<td>INGRESO</td>
 				<td>ESTADO</td>
@@ -60,19 +58,18 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[0] ?></td>
 					<td><?php echo $mostrar[1] ?></td>
 					<td><?php echo $mostrar[2] ?></td>
-					<td><?php echo $mostrar[3] ?></td>
 
 					<?php 
-						$date = new DateTime( $mostrar[4]);
+						$date = new DateTime( $mostrar[3]);
 					?>
 
 					<td><?php echo date_format($date, 'd/m/Y'); ?></td>
 										
-					<td><?php echo $mostrar[5] ?></td>
+					<td><?php echo $mostrar[4] ?></td>
 
 
 					<td>
-						<?php if( strcasecmp($mostrar[5], "ACTIVO") == 0 and intval($mostrar[6]) > 1 and intval($mostrar[6]) < 6 ){ ?>
+						<?php if( strcasecmp($mostrar[4], "ACTIVO") == 0 and intval($mostrar[5]) > 1 and intval($mostrar[5]) < 5 ){ ?>
 							<span class="btn btn-warning btn-xs" data-toggle="modal" data-target="#actualizarEmpleados" onclick="agregarFormActualizar(<?php echo $mostrar[0] ?> )">
 							<span class="far fa-edit" ></span>
 						</span>
@@ -83,11 +80,11 @@ $result=mysqli_query($conexion,$sql);
 					</td>	
 
 					<td>
-						<?php if( strcasecmp($mostrar[5], "ACTIVO") == 0  and intval($mostrar[6]) > 1 and intval($mostrar[6]) < 6   ){ ?>
+						<?php if( strcasecmp($mostrar[4], "ACTIVO") == 0  and intval($mostrar[5]) > 1 and intval($mostrar[5]) < 5   ){ ?>
 							<span class="btn btn-danger btn-xs" onclick="deshabilitarEmpleado(<?php echo $mostrar[0] ?> )">
 								<span class="fas fa-user-alt-slash"></span>
 							</span>
-						<?php  } else if ( intval($mostrar[6]) > 1 and intval($mostrar[6]) < 6 ) { ?>
+						<?php  } else if ( intval($mostrar[5]) > 1 and intval($mostrar[5]) < 5 ) { ?>
 							<span class="btn btn-success btn-xs" onclick="habilitarEmpleado(<?php echo $mostrar[0] ?> )">
 								<span class="fas fa-user-check"></span>
 							</span>
