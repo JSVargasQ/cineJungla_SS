@@ -80,11 +80,11 @@ $result=mysqli_query($conexion,$sql);
 
 					<td>
 						<?php if( strcasecmp($mostrar[5], "ACTIVO") == 0  ){ ?>
-							<span class="btn btn-warning btn-xs" onclick="desabilitarEmpleado(<?php echo $mostrar[0] ?> )">
+							<span class="btn btn-outline-danger btn-xs" onclick="deshabilitarEmpleado(<?php echo $mostrar[0] ?> )">
 								<span class="fas fa-user-alt-slash"></span>
 							</span>
 						<?php  } else { ?>
-							<span class="btn btn-warning btn-xs" onclick="habilitarEmpleado(<?php echo $mostrar[0] ?> )">
+							<span class="btn btn-outline-info btn-xs" onclick="habilitarEmpleado(<?php echo $mostrar[0] ?> )">
 								<span class="fas fa-user-check"></span>
 							</span>
 						<?php } ?>

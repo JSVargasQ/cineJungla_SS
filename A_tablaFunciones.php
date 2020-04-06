@@ -81,7 +81,7 @@ $result=mysqli_query($conexion,$sql);
 					<td>
 						<?php if( strcasecmp($mostrar[6], "DISPONIBLE") == 0  ){ ?>
 
-						<span class="btn btn-warning btn-xs" onclick="eliminarFuncion(<?php echo $mostrar[0]; echo ','; echo $mostrar[7] ?>)">
+						<span class="btn btn-outline-danger btn-xs" onclick="eliminarFuncion(<?php echo $mostrar[0]; echo ','; echo $mostrar[7] ?>)">
 							<span class="fas fa-minus-circle"></span>
 						</span>
 					</td>

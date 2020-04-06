@@ -63,11 +63,11 @@
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
-      <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+    <div class="logo">
+        <a href="A_paginaIndex.php" class="simple-text logo-mini">
           CJ
         </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="A_paginaIndex.php" class="simple-text logo-normal">
           CINE JUNGLA APP
         </a>
       </div>
@@ -75,38 +75,38 @@
         <ul class="nav">
           <li>
             <a href="A_paginaFunciones.php">
-              <i class="now-ui-icons design_app"></i>
+              <i class="fas fa-film"></i>
               <p>GESTI&Oacute;N DE FUNCIONES</p>
             </a>
           </li>
           <li>
             <a href="A_paginaSnacks.php">
-              <i class="now-ui-icons education_atom">
+              <i class="fas fa-hotdog">
               </i>
               <p>GESTI&Oacute;N DE SNACKS</p>
             </a>
           </li>
           <li>
             <a href="A_paginaSalas.php">
-              <i class="now-ui-icons location_map-big"></i>
+              <i class="fas fa-couch"></i>
               <p>GESTI&Oacute;N DE SALAS</p>
             </a>
           </li>
           <li>
             <a href="A_paginaEmpleados.php">
-              <i class="now-ui-icons ui-1_bell-53"></i>
+              <i class="now-ui-icons users_single-02"></i>
               <p>GESTI&Oacute;N DE EMPLEADOS</p>
             </a>
           </li>
           <li>
             <a href="A_paginaAuditoria.php">
-              <i class="now-ui-icons users_single-02"></i>
+              <i class="now-ui-icons ui-1_bell-53"></i>
               <p>AUDITORIA</p>
             </a>
           </li>
           <li>
             <a href="A_paginaReportes.php">
-              <i class="now-ui-icons users_single-02"></i>
+              <i class="fas fa-book"></i>
               <p>REPORTES</p>
             </a>
           </li>
