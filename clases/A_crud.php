@@ -90,13 +90,21 @@ include_once '../controlador/user_Sesion.php';
 		    
 		    $obj=new conectar();
 		    $conexion=$obj->conexion();
-		    
-			$aux = "select cantidad from cantidad_almacen where cantidad_almacen.codigo_producto=".$datos[0];
+
+			$aux = "select cantidad from cantidad_almacen where cantidad_almacen.codigo_producto=".$datos[0]." AND cantidad_almacen.multiplex='".$datos[3]."'";
 			$result=mysqli_query($conexion,$aux);
 			$auxNum = mysqli_fetch_array($result);
 
-			$newVal = intval($auxNum[0]) + intval($datos[1]);
-			$sql = "UPDATE cantidad_almacen set cantidad =".$newVal." where cantidad_almacen.codigo_producto =".$datos[0];
+			$alm = intval($datos[1])-1;
+
+			$newVal = intval($auxNum[0]) + intval($datos[2]);
+			$sql = "UPDATE cantidad_almacen 
+					set cantidad =".$newVal." 
+					where 
+						cantidad_almacen.codigo_producto=".$datos[0]." AND 
+						cantidad_almacen.almacen=".$alm." AND 
+						cantidad_almacen.multiplex='".$datos[3]."'" ;
+
 			$r = mysqli_query($conexion, $sql);
 			
 			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Snack', now(),'".$this->ip."');";

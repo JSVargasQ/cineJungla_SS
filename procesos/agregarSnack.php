@@ -7,7 +7,9 @@ $obj= new A_crud();
 $datos=array(
     
     $_POST['codigo'],
-    $_POST['cantidad']
+    $_POST['almacen'],
+    $_POST['cantidad'],
+    $_POST['multiplex']
     
 );
 

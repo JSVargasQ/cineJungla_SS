@@ -3,10 +3,15 @@ header('Content-Type: text/html; charset=UTF-8');
 ?>
 <?php 
 require_once "./clases/conexion.php";
+include_once 'controlador/user.php';
+include_once 'controlador/user_Sesion.php';
 $obj=new conectar();
 $conexion=$obj->conexion();
 
-$cod_mul=2;
+$userSession = new UserSession();
+$user = new Usuario();
+$user->setUser($userSession->getCurrentUser());
+    $cod_mul = $user->getCodigoMul();
 
 $sql="	SELECT 
 			cod_empleado, nombre_empleado, nom_multiplex, nombre_cargo_empleado , fecha_ingreso_empleado , estado_empleado
@@ -15,7 +20,7 @@ $sql="	SELECT
 		WHERE
 			MULTIPLEX.cod_multiplex = EMPLEADO.cod_multiplex AND
 			CARGO_EMPLEADO.cod_tipo_empleado = EMPLEADO.cod_tipo_empleado AND
-			EMPLEADO.cod_multiplex = $cod_mul";
+			EMPLEADO.cod_multiplex =".$cod_mul;
 
 $result=mysqli_query($conexion,$sql);
 
@@ -80,11 +85,11 @@ $result=mysqli_query($conexion,$sql);
 
 					<td>
 						<?php if( strcasecmp($mostrar[5], "ACTIVO") == 0  ){ ?>
-							<span class="btn btn-outline-danger btn-xs" onclick="deshabilitarEmpleado(<?php echo $mostrar[0] ?> )">
+							<span class="btn btn-danger btn-xs" onclick="deshabilitarEmpleado(<?php echo $mostrar[0] ?> )">
 								<span class="fas fa-user-alt-slash"></span>
 							</span>
 						<?php  } else { ?>
-							<span class="btn btn-outline-info btn-xs" onclick="habilitarEmpleado(<?php echo $mostrar[0] ?> )">
+							<span class="btn btn-success btn-xs" onclick="habilitarEmpleado(<?php echo $mostrar[0] ?> )">
 								<span class="fas fa-user-check"></span>
 							</span>
 						<?php } ?>

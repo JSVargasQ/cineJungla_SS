@@ -3,10 +3,16 @@ header('Content-Type: text/html; charset=UTF-8');
 ?>
 <?php 
 require_once "./clases/conexion.php";
+include_once 'controlador/user.php';
+include_once 'controlador/user_Sesion.php';
+
 $obj=new conectar();
 $conexion=$obj->conexion();
 
-$cod_mul = 2;
+$userSession = new UserSession();
+$user = new Usuario();
+$user->setUser($userSession->getCurrentUser());
+    $cod_mul = $user->getCodigoMul();
 
 $sql="	SELECT 
 			MULTIPLEX.nom_multiplex, SALA_CINE.cod_sala_cine, SALA_CINE.nombre_sala, SALA_CINE.estado_sala ,MULTIPLEX.cod_multiplex
@@ -54,10 +60,10 @@ $result=mysqli_query($conexion,$sql);
 
 					<td>
 						<?php if( strcasecmp($mostrar[3], "ACTIVO") == 0  ){ ?>
-							<span class="btn btn-outline-danger btn-xs" onclick="deshabilitarSala(<?php echo $mostrar[1]; echo ','; echo $mostrar[4]; ?> )">
-								<span class="far fa-window-close""></span>
+							<span class="btn btn-danger btn-xs" onclick="deshabilitarSala(<?php echo $mostrar[1]; echo ','; echo $mostrar[4]; ?> )">
+								<span class="fas fa-minus-circle""></span>
 						<?php  } else { ?>
-							<span class="btn btn-outline-info btn-xs" onclick="habilitarSala(  <?php echo $mostrar[1]; echo ','; echo $mostrar[4]; ?> )">
+							<span class="btn btn-success btn-xs" onclick="habilitarSala(  <?php echo $mostrar[1]; echo ','; echo $mostrar[4]; ?> )">
 								<span class="fas fa-check"></span>
 							</span>
 						<?php } ?>

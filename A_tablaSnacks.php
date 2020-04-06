@@ -13,11 +13,6 @@ $conexion=$obj->conexion();
 $userSession = new UserSession();
 $user = new Usuario();
 
-if(!isset($_SESSION['user']))
-{
-    header("location: index.php");
-}
-
 $user->setUser($userSession->getCurrentUser());
 $nom_mul = $user->getNomMul();
 

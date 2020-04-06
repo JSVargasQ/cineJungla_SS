@@ -3,10 +3,21 @@ header('Content-Type: text/html; charset=UTF-8');
 ?>
 <?php 
 require_once "./clases/conexion.php";
+include_once 'controlador/user.php';
+include_once 'controlador/user_Sesion.php';
+
 $obj=new conectar();
 $conexion=$obj->conexion();
 
-$sql="	SELECT cod_auditoria, cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion FROM AUDITORIA";
+$userSession = new UserSession();
+$user = new Usuario();
+$user->setUser($userSession->getCurrentUser());
+    $cod_mul = $user->getCodigoMul();
+
+$sql="	SELECT cod_auditoria, AUDITORIA.cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion 
+		FROM AUDITORIA, EMPLEADO
+		WHERE AUDITORIA.cod_usuario = EMPLEADO.cod_usuario AND
+			  EMPLEADO.cod_multiplex =".$cod_mul;
 
 $result=mysqli_query($conexion,$sql);
 

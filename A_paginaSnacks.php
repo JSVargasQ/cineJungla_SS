@@ -44,6 +44,7 @@
     
     $user->setUser($userSession->getCurrentUser());
     $cod_mul = $user->getCodigoMul();
+    $nom_mul = $user->getNomMul();
     $cod_usuario = $user->getCodUsuario();
     $nom_c_empleado = $user->getNomTUsuario();
     $host= gethostname();
@@ -129,14 +130,7 @@
             </div>
             <a class="navbar-brand" style="font-size:3 ">
             <?php 
-                $conexion=$obj->conexion();
-                $sql="SELECT nom_multiplex FROM MULTIPLEX where MULTIPLEX.cod_multiplex = $cod_mul";
-                $result=mysqli_query($conexion,$sql);
-                
-                while($row = $result->fetch_assoc())
-                {
-                    echo "MULTIPLEX ". $row['nom_multiplex'];
-                }
+                    echo "MULTIPLEX ". $nom_mul;
                 ?></a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -178,7 +172,7 @@
                 TABLA SNACKS
               </div>
               <div class="card-body">
-                <span class="btn btn-success" data-toggle="modal" data-target="#agregarSnack"> Agregar snack <i class="fas fa-hotdog"></i>
+                <span class="btn btn-info" data-toggle="modal" data-target="#agregarSnack"> Agregar snack <i class="fas fa-hotdog"></i>
                 </span>
                
 
@@ -241,6 +235,8 @@
         <form id="formSnack">
         <table>
           <tr>
+            <input type="hidden" name="almacen" id="almacen" value='<?php echo $cod_mul ?>'>
+            <input type="hidden" name="multiplex" id="multiplex" value='<?php echo $nom_mul ?>'>
             <td><label>Snack:</label></td>
             <td><select name="codigo" id="codigo">
 
@@ -280,12 +276,13 @@
   $(document).ready(function(){
     $('#btnAgregarSnack').click(function(){
       datos=$('#formSnack').serialize();
-
+      console.log(datos);
     $.ajax({
         type:"POST",
         data:datos,
         url:"procesos/agregarSnack.php",
         success:function(r){
+          console.log(r);
           if(r==1){
             $('#formSnack')[0].reset();
             alertify.success("Agregado con exito.");

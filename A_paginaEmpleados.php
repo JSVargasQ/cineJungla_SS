@@ -178,7 +178,7 @@
                 TABLA PRODUCTOS
               </div>
               <div class="card-body">
-                <span class="btn btn-success" data-toggle="modal" data-target="#agregarEmpleado"> Agregar empleado <i class="fas fa-user-plus"></i>
+                <span class="btn btn-info" data-toggle="modal" data-target="#agregarEmpleado"> Agregar empleado <i class="fas fa-user-plus"></i>
                 </span>
 
                 <hr>

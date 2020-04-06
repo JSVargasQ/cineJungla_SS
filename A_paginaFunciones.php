@@ -180,7 +180,7 @@
               </div>
               <div class="card-body">
 
-                <span class="btn btn-success" data-target="#agregarFuncion"  data-toggle="modal"> Añadir función  <i class="fas fa-film"></i>
+                <span class="btn btn-info" data-target="#agregarFuncion"  data-toggle="modal"> Añadir función  <i class="fas fa-film"></i>
                 </span>
 
                 <hr>
