@@ -185,15 +185,7 @@
               <button type="button" class="btn btn-info" data-toggle="modal" data-target="#reporteVentas">
                 Reportes Ventas
               </button>
-
-              <!-- <button type="button" class="btn btn-info" onclick="window.location='A_paginaReporteSnacks.php'"> Reportes Snacks </button>
-              -->
-              <!-- <button type="button" class="btn btn-info" onclick="window.location='A_paginaReportePeliculas.php'"> Reportes Peliculas </button>
-              -->
-
-              <!--  <button type="button" class="btn btn-info" onclick="window.location='A_paginaReporteVentas.php'"> Reportes Ventas </button>
-                -->
-
+              
 				<script type="text/javascript">
 				document.cookie = 'same-site-cookie=foo; SameSite=Lax'; 
 				document.cookie = 'cross-site-cookie=bar; SameSite=None; Secure';
@@ -202,7 +194,7 @@
                 <hr>
                 <div id="tabladatatable">
 
-				<br><br><br><br><br><br><br><br><br><center><h1>Bienvenido, ac&aacute; podra observar sus reportes</h1></center><br><br><br><br><br><br><br><br><br>
+				<br><br><br><br><br><br><br><br><br><center><h1>Bienvenido, seleccione el reporte que desea observar.</h1></center><br><br><br><br><br><br><br><br><br>
 
                 </div>
               </hr>

@@ -1,4 +1,5 @@
 <?php
+ob_start();
 header('Content-Type: text/html; charset=UTF-8');
 ?>
 
@@ -6,6 +7,7 @@ header('Content-Type: text/html; charset=UTF-8');
 require_once "../clases/conexion.php";
 include_once '../controlador/user.php';
 include_once '../controlador/user_Sesion.php';
+
 
 $obj=new conectar();
 $conexion=$obj->conexion();
@@ -66,3 +68,13 @@ $result=mysqli_query($conexion,$sql);
 		$('#iddatatable').DataTable();
 	} );
 </script>
+
+<?php
+require_once './assets/dompdf/autoload.inc.php';
+require_once './assets/dompdf/src/Dompdf.php';
+use Dompdf\Dompdf;
+$dompdf = new Dompdf();
+$dompdf->load_html( file_get_contents( 'http://localhost/A_tablas/A_tablaSnacks.php' ) );
+$dompdf->render();
+$dompdf->stream("mi_archivo.pdf");
+?>

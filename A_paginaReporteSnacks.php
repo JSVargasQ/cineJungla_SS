@@ -255,6 +255,9 @@ chart.render();
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <br><br><br>
                 </div>
+                <div align="right">
+                	<a href="prueba.php?t=pdf" target="_blank">PDF</a>
+                </div>
               </hr>
             </div>
             <div class="card-footer text-muted">
@@ -530,7 +533,6 @@ chart.render();
             </div>
           </div>
         </div>
-
 </body>
 
 </html>
