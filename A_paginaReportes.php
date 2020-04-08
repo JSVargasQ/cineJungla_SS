@@ -49,7 +49,7 @@
     $host= gethostname();
     $ip = gethostbyname($host);
     
-    $sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$cod_usuario.", '".$nom_c_empleado."', 'Read', 'Salas', now(),'".$ip."');";
+    $sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$cod_usuario.", '".$nom_c_empleado."', 'Read', 'Empleados', now(),'".$ip."');";
     $result=mysqli_query($conexion,$sql);
     ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -175,10 +175,12 @@
           <div class="col-sm-12">
             <div class="card text-left">
               <div class="card-header">
-                GRAFICA REPORTES
+                TABLA PRODUCTOS
               </div>
               <div class="card-body">
-               <button type="button" class="btn btn-info" onclick="cargar('Snacks')"> Reportes Snacks </button>
+
+
+              <button type="button" class="btn btn-info" onclick=""> Reportes Snacks </button>
                 <button type="button" class="btn btn-info" onclick="window.location='A_graficasReportes/A_graficaPeliculas.php'"> Reportes Peliculas </button>
                 <button type="button" class="btn btn-info" onclick="window.location='A_graficasReportes/A_graficaVentas.php'"> Reportes Ventas </button>
 
@@ -227,16 +229,308 @@
     </div>
     </div>
   </div>
+
+
+
+<!-- Modal INSERT-->
+<div class="modal fade" id="agregarEmpleado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar empleado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formEmpleado">
+        <table>
+          <tr>
+            <td><label>Nombre:</label></td>
+            <td><input type="text" id="nombre" name="nombre" required ></td>
+          </tr>
+
+          <tr>
+            <td><input type="hidden"></td>
+            <td><input type="hidden" id="multiplex" name="multiplex" value=2></td>
+          </tr>
+
+          <tr>
+            <td><label>Salario:</label></td>
+            <td><input type="number" id="salario" values="1" min="0" name="salario"></td>
+          </tr>
+
+          <tr>
+            <td><label>Cod usuario:</label></td>
+            <td><input type="number" id="cod" values="1" min="0" name="cod"></td>
+          </tr>
+
+          <tr>
+            <td><label>Tipo:</label></td>
+            <td><select name="tipo" id="tipo">
+
+                    <?php 
+                      $sql = "SELECT cod_tipo_empleado, nombre_cargo_empleado FROM cargo_empleado  WHERE cod_tipo_empleado != 1 AND cod_tipo_empleado != 6";
+                      $result=mysqli_query($conexion,$sql);
+
+                      while( $cargoEmpl = mysqli_fetch_row($result) )
+                  {
+                      echo "<option value=$cargoEmpl[0]>$cargoEmpl[1]</option>"; 
+                  }
+                    ?>
+                  </select></td>
+
+          </tr>
+
+          <tr>
+            <td><label>Correo:</label></td>
+            <td><input type="text" id="correo"  name="correo"></td>
+          </tr>
+
+            <td><label>Fecha de ingreso:</label></td>
+            <td><input type="DATE" id="fecha" name="fecha"></td>
+
+        </table>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" id="btnAgregarNuevo" class="btn btn-primary">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal UPDATE-->
+<div class="modal fade" id="actualizarEmpleados" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Actualizar empleado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formEmpleadoU">
+        <table>
+
+          <tr>
+            <td><input type="hidden" id="cod_empleadoU" name="cod_empleadoU" value=""></td>
+          </tr>
+
+          <tr>
+            <td><label>Nombre:</label></td>
+            <td><input type="text" id="nombreU" name="nombreU" required ></td>
+          </tr>
+
+          <tr>
+            <td><label>Salario:</label></td>
+            <td><input type="number" id="salarioU" values="1" min="0" name="salarioU"></td>
+          </tr>
+
+
+
+          <tr>
+            <td><label>Tipo:</label></td>
+            <td><select name="tipoU" id="tipoU">
+
+                    <?php 
+                      $sql = "SELECT cod_tipo_empleado, nombre_cargo_empleado FROM cargo_empleado WHERE cod_tipo_empleado != 1 AND cod_tipo_empleado != 6";
+                      $result=mysqli_query($conexion,$sql);
+
+                      while( $cargoEmpl = mysqli_fetch_row($result) )
+                  {  
+                      echo "<option value=$cargoEmpl[0]>$cargoEmpl[1]</option>"; 
+                  }
+                    ?>
+                  </select></td>
+
+          </tr>
+
+          <tr>
+            <td><label>Correo:</label></td>
+            <td><input type="text" id="correoU"  name="correoU"></td>
+          </tr>
+
+        </table>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" id="btnActualizarEmpleado" class="btn btn-primary">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </body>
 
 </html>
 
+
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#tabladatatable').load('A_graficaSnacks.php');
+
+    $('#btnAgregarNuevo').click(function(){
+      datos=$('#formEmpleado').serialize();
+
+    $.ajax({
+        type:"POST",
+        data:datos,
+        url:"procesos/agregarEmpleado.php",
+        success:function(r){
+          if(r==1){
+            $('#formEmpleado')[0].reset();
+            alertify.success("Agregado con exito.");
+            $('#tabladatatable').load('A_tablas/A_tablaEmpleados.php');
+          }
+          
+          else{
+            alertify.error("No se pudo agregar el empleado");
+          }
+        }
+      }); 
+
+    });
+
+
+
+    $('#btnActualizarEmpleado').click(function(){
+      datos=$('#formEmpleadoU').serialize();
+
+    $.ajax({
+        type:"POST",
+        data:datos,
+        url:"procesos/actualizarEmpleados.php",
+        success:function(r){
+          if(r==1){
+            $('#formEmpleadoU')[0].reset();
+            alertify.success("Actualizado con exito.");
+            $('#tabladatatable').load('A_tablas/A_tablaEmpleados.php');
+            
+          }
+          else{
+            alertify.error("No se pudo actualizar el empleado");
+          }
+        }
+      }); 
+
+    });
+
+
   });
 
-  function cargar(){
-	  $('#tabladatatable').load('A_graficaSnacks.php');
-	  };
+  
+
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#tabladatatable').load('A_graficasReportes/A_graficaSnacks.php');
+  });
+
+
+</script>
+
+
+<script type="text/javascript">
+  function agregarFormActualizar(cod_empleado){
+
+    var parametros = {
+                "cod_empleado" : cod_empleado,
+        };
+
+    $.ajax({
+
+      type:"POST",
+      data:parametros,
+      url:"procesos/obtenerDatosEmpleados.php",
+      success:function(r){
+
+      datos=jQuery.parseJSON(r);   
+
+      $('#cod_empleadoU').val(datos['cod_empleado']);
+      $('#nombreU').val(datos['nom_empleado']);
+      $('#salarioU').val(datos['salario_empleado']);
+      $('#tipoU').val(datos['cod_tipo_empleado']);
+      $('#correoU').val(datos['correo_empleado']);
+      
+      }
+
+    });
+
+  }
+
+  function deshabilitarEmpleado(pCodEmpleado){
+
+    alertify.confirm('Deshabilitar empleado', '¿Seguro desea deshabilitar este empleado?', 
+          function(){ 
+            var parametros = {
+                "cod_empleado" : pCodEmpleado
+            };
+
+            $.ajax({
+
+            type:"POST",
+            data:parametros,
+            url:"procesos/deshabilitarEmpleado.php",
+            success:function(r){
+
+              if(r==1){
+
+                alertify.success("Se deshabilito");
+                $('#tabladatatable').load('A_tablas/A_tablaEmpleados.php');
+
+              }else{
+                alertify.error("No se pudo deshabilitar");
+              }
+
+            }
+
+            });
+          }, 
+          function(){ 
+            
+          });
+  }
+
+  function habilitarEmpleado(pCodEmpleado){
+
+  alertify.confirm('Habilitar empleado', '¿Seguro desea habilitar este empleado?', 
+        function(){ 
+          var parametros = {
+              "cod_empleado" : pCodEmpleado
+          };
+
+          $.ajax({
+
+          type:"POST",
+          data:parametros,
+          url:"procesos/habilitarEmpleado.php",
+          success:function(r){
+
+            if(r==1){
+
+              alertify.success("Se ha habilitado");
+              $('#tabladatatable').load('A_tablas/A_tablaEmpleados.php');
+
+            }else{
+              alertify.error("No se ha podido habilitar");
+            }
+
+          }
+
+          });
+        }, 
+        function(){ 
+          
+        });
+  }
+  
 </script>
