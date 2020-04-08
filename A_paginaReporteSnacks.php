@@ -46,6 +46,8 @@
     $cod_mul = $user->getCodigoMul();
     $cod_usuario = $user->getCodUsuario();
 
+    error_reporting(0);
+
     ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -175,9 +177,17 @@
               <div class="card-body">
 
 
-              <button type="button" class="btn btn-info" onclick="window.location='A_paginaReporteSnacks.php'"> Reportes Snacks </button>
-                <button type="button" class="btn btn-info" onclick="window.location='A_paginaReportePeliculas.php'"> Reportes Peliculas </button>
-                <button type="button" class="btn btn-info" onclick="window.location='A_paginaReporteVentas.php'"> Reportes Ventas </button>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#reporteSnack">
+                Reportes Snacks
+              </button>
+
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#reportePeliculas">
+                Reportes Peliculas
+              </button>
+
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#reporteVentas">
+                Reportes Ventas
+              </button>
 				
 				<script type="text/javascript">
 				document.cookie = 'same-site-cookie=foo; SameSite=Lax'; 
@@ -201,8 +211,8 @@
                         producto 
                 WHERE
                       comida_factura.cod_factura=factura_multiplex.cod_factura AND
-                      YEAR(factura_multiplex.FECHA_COMPRA)=2020 AND
-                      MONTH(factura_multiplex.FECHA_COMPRA)=5 AND
+                      YEAR(factura_multiplex.FECHA_COMPRA)=".$_POST['año']." AND
+                      MONTH(factura_multiplex.FECHA_COMPRA)=".$_POST['mes']." AND
                       comida_factura.cod_producto=producto.cod_producto
                 group by COD_PRODUCTO
                 order by CANTIDAD";
@@ -282,6 +292,244 @@ chart.render();
     </div>
     </div>
   </div>
+
+  <!-- Modal Snacks-->
+  <div class="modal fade" id="reporteSnack" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reporte Snacks</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+              <form action="./A_paginaReporteSnacks.php" method="post" id="form1">
+
+                <table>
+
+                  <tr>
+                    <td><label>Año</label></td>
+
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      
+
+                    <td><label>Mes</label></td>
+                    
+                  </tr>
+
+                  <tr>
+
+                    <td>
+                      <select name="año" id="año" class="form-control">
+                   
+                    <?php                      
+                      $años = array();
+
+                      for($i = date("Y")-5; $i <= date("Y")+5; $i++){
+
+                        echo "<option value=$i>$i</option>";                         
+                      }
+
+                    ?>
+
+                    </select>
+                    
+                    </td>
+                      
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                    
+                    <td>
+                      <select name="mes" id="mes" class="form-control">
+                   
+                      <?php
+                        $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+
+                        for($i = 0; $i < count($meses); $i++){
+
+                          echo "<option value=$i+1>$meses[$i]</option>";                         
+                        }
+
+                      ?>
+                    </td>
+
+                  </tr>
+
+
+                </table>
+              </form>
+
+              
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="form1" value="Submit">Ir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <!-- Modal Peliculas -->
+         <div class="modal fade" id="reportePeliculas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reporte Peliculas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+              <form action="./A_paginaReportePeliculas.php" method="post" id="form2">
+
+                <table>
+
+                  <tr>
+                    <td><label>Año</label></td>
+
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      
+
+                    <td><label>Mes</label></td>
+                    
+                  </tr>
+
+                  <tr>
+
+                    <td>
+                      <select name="año" id="año" class="form-control">
+                   
+                    <?php                      
+                      $años = array();
+
+                      for($i = date("Y")-5; $i <= date("Y")+5; $i++){
+
+                        echo "<option value=$i>$i</option>";                         
+                      }
+
+                    ?>
+
+                    </select>
+                    
+                    </td>
+                      
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                      <td>&nbsp</td>
+                    
+                    <td>
+                      <select name="mes" id="mes" class="form-control">
+                   
+                      <?php
+                        $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+
+                        for($i = 0; $i < count($meses); $i++){
+
+                          echo "<option value=$i+1>$meses[$i]</option>";                         
+                        }
+
+                      ?>
+                    </td>
+
+                  </tr>
+
+
+                </table>
+              </form>
+
+              
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="form2" value="Submit">Ir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <!-- Modal Ventas-->
+         <div class="modal fade" id="reporteVentas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reporte Snacks</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+              <form action="./A_paginaReporteVentas.php" method="post" id="form3">
+
+                <center><table>
+
+                  <tr>
+                    <td><center><label>Año</label></center></td>
+                  </tr>
+
+                  <tr>
+
+                    <td>
+                      <select name="año" id="año" class="form-control">
+                   
+                    <?php                      
+                      $años = array();
+
+                      for($i = date("Y")-5; $i <= date("Y")+5; $i++){
+
+                        echo "<option value=$i>$i</option>";                         
+                      }
+
+                    ?>
+
+                    </select>
+
+                  </tr>
+
+
+                  </center></table>
+              </form>
+
+              
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="form3" value="Submit">Ir</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
 </body>
 
