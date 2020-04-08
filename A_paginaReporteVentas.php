@@ -191,9 +191,49 @@
 				
                 <hr>
                 <div id="tabladatatable">
-
-				<br><br><br><br><br><br><br><br><br><center><h1>Bienvenido, ac&aacute; podra observar sus reportes</h1></center><br><br><br><br><br><br><br><br><br>
-
+<br><br>
+<?php
+ 
+$dataPoints = array( 
+	array("y" => 7,"label" => "March" ),
+	array("y" => 12,"label" => "April" ),
+	array("y" => 28,"label" => "May" ),
+	array("y" => 18,"label" => "June" ),
+	array("y" => 41,"label" => "July" )
+);
+ 
+?>
+<script>
+window.onload = function() {
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	exportEnabled: true,
+	title:{
+		text: "Reporte de ventas mensual"
+	},
+	axisY: {
+		title: "",
+		prefix: "$",
+		suffix:  "k"
+	},
+	data: [{
+		type: "bar",
+		yValueFormatString: "$#,##0K",
+		indexLabel: "{y}",
+		indexLabelPlacement: "inside",
+		indexLabelFontWeight: "bolder",
+		indexLabelFontColor: "white",
+		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+	}]
+});
+chart.render();
+ 
+}
+</script>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>      
+<br><br><br>
                 </div>
               </hr>
             </div>
