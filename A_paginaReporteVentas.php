@@ -45,12 +45,7 @@
     $user->setUser($userSession->getCurrentUser());
     $cod_mul = $user->getCodigoMul();
     $cod_usuario = $user->getCodUsuario();
-    $nom_c_empleado = $user->getNomTUsuario();
-    $host= gethostname();
-    $ip = gethostbyname($host);
-    
-    $sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$cod_usuario.", '".$nom_c_empleado."', 'Read', 'Empleados', now(),'".$ip."');";
-    $result=mysqli_query($conexion,$sql);
+
     ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -194,13 +189,36 @@
 <br><br>
 <?php
  
-$dataPoints = array( 
-	array("y" => 7,"label" => "March" ),
-	array("y" => 12,"label" => "April" ),
-	array("y" => 28,"label" => "May" ),
-	array("y" => 18,"label" => "June" ),
-	array("y" => 41,"label" => "July" )
-);
+ $meses_ES = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+
+$datosAñoSnack = array();
+$datosAñoBoleta = array();
+
+for($i = 12; $i >0; $i--){
+
+  $sql = "SELECT 
+              cod_multiplex as MULTIPLEX, SUM(TOTAL_PRODUCTOS), SUM(TOTAL_SILLA)
+        FROM 
+              mostrar_facturas_ventas
+        WHERE 
+              YEAR(FECHA_COMPRA)=2020 AND
+              MONTH(FECHA_COMPRA)=".$i." 
+
+        GROUP BY MULTIPLEX;";
+
+        $result=mysqli_query($conexion,$sql);
+        $mostrar=mysqli_fetch_row($result);
+
+        $actual = array("y" => intval($mostrar[1])/1000,"label" => $meses_ES[$i-1]);
+        array_push($datosAñoSnack, $actual);
+
+        $actual = array("y" => intval($mostrar[2])/1000,"label" => $meses_ES[$i-1]);
+        array_push($datosAñoBoleta, $actual);
+
+}
+
+
+
  
 ?>
 <script>
@@ -209,22 +227,30 @@ window.onload = function() {
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 	exportEnabled: true,
+  theme: "light2",
 	title:{
 		text: "Reporte de ventas mensual"
 	},
+  axisX:{
+   interval: 1,
+ },
 	axisY: {
 		title: "",
 		prefix: "$",
-		suffix:  "k"
+		suffix:  "k",
 	},
 	data: [{
 		type: "bar",
+		name: "Snacks",
 		yValueFormatString: "$#,##0K",
-		indexLabel: "{y}",
-		indexLabelPlacement: "inside",
-		indexLabelFontWeight: "bolder",
-		indexLabelFontColor: "white",
-		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+		showInLegend: true,
+		dataPoints: <?php echo json_encode($datosAñoSnack, JSON_NUMERIC_CHECK); ?>
+	},{
+		type: "bar",
+		name: "Boletas",
+		yValueFormatString: "$#,##0K",
+		showInLegend: true,
+		dataPoints: <?php echo json_encode($datosAñoBoleta, JSON_NUMERIC_CHECK); ?>
 	}]
 });
 chart.render();

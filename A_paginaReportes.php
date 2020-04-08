@@ -45,12 +45,7 @@
     $user->setUser($userSession->getCurrentUser());
     $cod_mul = $user->getCodigoMul();
     $cod_usuario = $user->getCodUsuario();
-    $nom_c_empleado = $user->getNomTUsuario();
-    $host= gethostname();
-    $ip = gethostbyname($host);
-    
-    $sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$cod_usuario.", '".$nom_c_empleado."', 'Read', 'Empleados', now(),'".$ip."');";
-    $result=mysqli_query($conexion,$sql);
+
     ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->

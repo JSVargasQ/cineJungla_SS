@@ -45,12 +45,7 @@
     $user->setUser($userSession->getCurrentUser());
     $cod_mul = $user->getCodigoMul();
     $cod_usuario = $user->getCodUsuario();
-    $nom_c_empleado = $user->getNomTUsuario();
-    $host= gethostname();
-    $ip = gethostbyname($host);
-    
-    $sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$cod_usuario.", '".$nom_c_empleado."', 'Read', 'Empleados', now(),'".$ip."');";
-    $result=mysqli_query($conexion,$sql);
+
     ?>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -194,21 +189,34 @@
 <br><br>
 				<?php
 
-$dataPoints = array(
-    array("x"=> 10, "y"=> 41),
-    array("x"=> 20, "y"=> 35, "indexLabel"=> "Lowest"),
-    array("x"=> 30, "y"=> 50),
-    array("x"=> 40, "y"=> 45),
-    array("x"=> 50, "y"=> 52),
-    array("x"=> 60, "y"=> 68),
-    array("x"=> 70, "y"=> 38),
-    array("x"=> 80, "y"=> 71, "indexLabel"=> "Highest"),
-    array("x"=> 90, "y"=> 52),
-    array("x"=> 100, "y"=> 60),
-    array("x"=> 110, "y"=> 36),
-    array("x"=> 120, "y"=> 49),
-    array("x"=> 130, "y"=> 41)
-);
+
+        $sql = "SELECT  producto.cod_producto as COD_PRODUCTO,
+                        factura_multiplex.COD_MULTIPLEX AS MULTIPLEX,
+                        PRODUCTO.NOMBRE_PRODUCTO AS PRODUCTO,
+                        SUM(CANTIDAD_PRODUCTO) AS CANTIDAD
+                
+                FROM
+                        comida_factura,
+                        factura_multiplex,
+                        producto 
+                WHERE
+                      comida_factura.cod_factura=factura_multiplex.cod_factura AND
+                      YEAR(factura_multiplex.FECHA_COMPRA)=2020 AND
+                      MONTH(factura_multiplex.FECHA_COMPRA)=5 AND
+                      comida_factura.cod_producto=producto.cod_producto
+                group by COD_PRODUCTO
+                order by CANTIDAD";
+        
+        
+        $datosMes = array();
+
+        $result=mysqli_query($conexion,$sql);
+
+        while($mostrar=mysqli_fetch_row($result))
+        {
+            $actual = array("label"=> $mostrar[2], "y"=> $mostrar[3]);
+            array_push($datosMes, $actual);
+        }
 
 ?>
 <script>
@@ -226,7 +234,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		//indexLabel: "{y}", //Shows y value on all Data Points
 		indexLabelFontColor: "#5A5757",
 		indexLabelPlacement: "outside",   
-		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+		dataPoints: <?php echo json_encode($datosMes, JSON_NUMERIC_CHECK); ?>
 	}]
 });
 chart.render();
