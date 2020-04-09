@@ -272,7 +272,14 @@ chart.render();
 <br><br>
                 </div>
                 <div align="right">
-                	<a href="A_pdfVentas.php?t=pdf" target="_blank">PDF</a>
+                  <form id="data" name="data" action="./A_reportes/A_pdfVentas.php?t=pdf" method="POST">
+                    <input type="hidden" id='año' name='año' value='<?php echo $_POST['año']?>' >
+                    <input type="hidden" id='mes' name='mes' value='<?php echo $_POST['mes'] ?>' >
+                  </form>
+
+                  <a href="#" onclick="javascript:document.data.submit()" target="_blank">PDF</a>
+              
+
                 </div><br>
               </hr>
             </div>
@@ -312,8 +319,8 @@ chart.render();
     </div>
   </div>
 
-  <!-- Modal Snacks-->
-  <div class="modal fade" id="reporteSnack" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <!-- Modal Snacks-->
+ <div class="modal fade" id="reporteSnack" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -397,7 +404,7 @@ chart.render();
 
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-primary" form="form1" value="Submit">Ir</button>
               </div>
             </div>
@@ -489,7 +496,7 @@ chart.render();
 
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-primary" form="form2" value="Submit">Ir</button>
               </div>
             </div>
@@ -501,7 +508,7 @@ chart.render();
          <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Reporte Snacks</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Reporte Ventas</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -543,13 +550,12 @@ chart.render();
 
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-primary" form="form3" value="Submit">Ir</button>
               </div>
             </div>
           </div>
         </div>
-
 </body>
 
 </html>
