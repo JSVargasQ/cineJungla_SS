@@ -239,7 +239,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	exportEnabled: true,
   theme: "light2",
 	title:{
-		text: "Reporte de ventas mensual"
+		text: "Reporte de ventas anual"
 	},
   axisX:{
    interval: 1,

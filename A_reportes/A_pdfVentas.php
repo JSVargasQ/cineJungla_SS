@@ -18,25 +18,32 @@ $nom_mul = $user->getNomMul();
 ob_start();
 ?>
 
-<div>
-	<table class="table table-hover table-condensed" id="iddatatable">
+
+<div align="center">
+<br>
+<h2>REPORTE VENTAS MULTIPLEX <?php echo $nom_mul." (".$_POST['año'].")" ?></h2>
+<br>
+	<table style="margin: auto; border-color: #4f944a; border-collapse:collapse" border=1 class="table table-hover table-condensed" id="iddatatable">
 	
-		<thead style="background-color: #4f944a;color: white; font-weight: bold;">
+		<thead style="margin: auto; border-color: #4f944a; border-collapse:collapse">
 
 			<tr>
-				<td colspan="2">REPORTE VENTAS MULTIPLEX <?php echo $nom_mul." (".$_POST['año'].")" ?> </td>
-
-			</tr>
-
-			<tr>
+				<td><center>MES</center></td>
 				<td><center>VENTA SNACKS</center></td>
-				<td><center>VENTA SILLAS</center></td>
+				<td><center>VENTA BOLETOS</center></td>
+				<td><center>VENTA TOTAL</center></td>
 			</tr>
 		</thead>
 		
-		<tbody>
+		<tbody >
 			<?php 
-			for($i = 12; $i >0; $i--){
+			$meses_ES = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+			
+			$total1 = 0;
+			$total2 = 0;
+			
+			for($i = 0; $i < 12; $i++)
+			{
 
 				$sql = "SELECT 
 							cod_multiplex as MULTIPLEX, SUM(TOTAL_PRODUCTOS), SUM(TOTAL_SILLA)
@@ -50,30 +57,39 @@ ob_start();
 			  
 					  $result=mysqli_query($conexion,$sql);
 					  $mostrar=mysqli_fetch_row($result);
-
-			
+					      
+					      $total1 = $total1 + intval($mostrar[1]);
+					      $total2 = $total2 + intval($mostrar[2]);
 			?>
-				<tr>
+				<tr style="border-color: #4f944a; border-collapse:collapse">
+					<td><center><?php echo $meses_ES[$i] ?></center></td>
 					<td><center><?php echo $mostrar[1] ?></center></td>
 					<td><center><?php echo $mostrar[2] ?></center></td>
-					
+					<td><center><?php echo intval($mostrar[1])+intval($mostrar[2]) ?></center></td>
 				</tr>
 			<?php 
-
 			}
-		
 			?>
 		</tbody>
 		
-		<tfoot style="background-color: #ccc;color: white; font-weight: bold;">
+		<tfoot style="margin: auto; border-color: #4f944a; border-collapse:collapse">
 			<tr>
+				<td><center>MES</center></td>
 				<td><center>VENTA SNACKS</center></td>
-				<td><center>VENTA SILLAS</center></td>
+				<td><center>VENTA BOLETOS</center></td>
+				<td><center>VENTA TOTAL</center></td>
+			</tr>
+			<tr>
+				<td width=100px><center>TOTAL</center></td>
+				<td width=100px><center><?php echo $total1 ?></center></td>
+				<td width=100px><center><?php echo $total2 ?></center></td>
+				<td width=100px><center><?php echo $total1 + $total2 ?></center></td>
 			</tr>
 		</tfoot>
 	</table>
+	<br><br><p align="right"><?php $fecha = new DateTime("now", new DateTimeZone('America/Bogota')); $fecha->setTimezone(new DateTimeZone('America/Bogota')); echo $fecha->format('d-m-Y H:i:s');?></p>
 </div>
-
+</html>
 
 <?php
 use Dompdf\Dompdf;

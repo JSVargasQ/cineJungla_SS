@@ -36,18 +36,17 @@ $result=mysqli_query($conexion,$sql);
 ob_start();
 ?>
 
-<div>
+<div align="center">
 	
+<br>
+<?php $mes = intval($_POST['mes'])+1; ?>
+<h2>REPORTE MULTIPLEX <?php echo $nom_mul." (".$_POST['año']."/".$mes.")" ?></h2>
+<br>
 
-	<table class="table table-hover table-condensed" id="iddatatable">
+	<table style="margin: auto; border-color: #4f944a; border-collapse:collapse" border=1 class="table table-hover table-condensed" id="iddatatable">
 	
-		<thead style="background-color: #4f944a;color: white; font-weight: bold;">
+		<thead style="margin: auto; border-color: #4f944a; border-collapse:collapse">
 		
-			<tr>
-				<?php $mes = intval($_POST['mes'])+1; ?>
-				<td colspan="2">REPORTE MULTIPLEX <?php echo $nom_mul." (".$_POST['año']."/".$mes.")" ?> </td>
-
-			</tr>
 
 			<tr>
 				<td>PRODUCTO</td>
@@ -70,13 +69,14 @@ ob_start();
 			?>
 		</tbody>
 		
-		<tfoot style="background-color: #ccc;color: white; font-weight: bold;">
+		<tfoot style="margin: auto; border-color: #4f944a; border-collapse:collapse">
 			<tr>
 				<td>PRODUCTO</td>
 				<td><center>CANTIDAD</center></td>
 			</tr>
 		</tfoot>
 	</table>
+		<br><br><p align="right"><?php $fecha = new DateTime("now", new DateTimeZone('America/Bogota')); $fecha->setTimezone(new DateTimeZone('America/Bogota')); echo $fecha->format('d-m-Y H:i:s');?></p>
 </div>
 
 
