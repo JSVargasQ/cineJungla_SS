@@ -1,11 +1,9 @@
 <?php
-header('Content-Type: text/html; charset=UTF-8');
-?>
-
-<?php 
-require_once "../clases/conexion.php";
-include_once '../controlador/user.php';
-include_once '../controlador/user_Sesion.php';
+require_once './assets/dompdf/autoload.inc.php';
+require_once './assets/dompdf/src/Dompdf.php';
+require_once "./clases/conexion.php";
+include_once './controlador/user.php';
+include_once './controlador/user_Sesion.php';
 
 
 $obj=new conectar();
@@ -22,6 +20,8 @@ $sql= " SELECT
         FROM
             cantidad_almacen where MULTIPLEX = '".$nom_mul."'";
 $result=mysqli_query($conexion,$sql);
+
+ob_start();
 ?>
 
 <div>
@@ -34,14 +34,6 @@ $result=mysqli_query($conexion,$sql);
 				<td>CANTIDAD</td>
 			</tr>
 		</thead>
-		
-		<tfoot style="background-color: #ccc;color: white; font-weight: bold;">
-			<tr>
-				<td>CODIGO PRODUCTO</td>
-				<td>PRODUCTO</td>
-				<td>CANTIDAD</td>
-			</tr>
-		</tfoot>
 		
 		<tbody>
 			<?php 
@@ -58,12 +50,22 @@ $result=mysqli_query($conexion,$sql);
 			}
 			?>
 		</tbody>
+		
+		<tfoot style="background-color: #ccc;color: white; font-weight: bold;">
+			<tr>
+				<td>CODIGO PRODUCTO</td>
+				<td>PRODUCTO</td>
+				<td>CANTIDAD</td>
+			</tr>
+		</tfoot>
 	</table>
 </div>
 
-<script type="text/javascript">
-	$(document).ready(function() 
-	{
-		$('#iddatatable').DataTable();
-	} );
-</script>
+
+<?php
+use Dompdf\Dompdf;
+$dompdf = new Dompdf();
+$dompdf->loadHtml( ob_get_clean() );
+$dompdf->render();
+$dompdf->stream("ReporteVentas.pdf");
+?>

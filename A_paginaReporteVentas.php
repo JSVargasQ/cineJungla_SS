@@ -269,8 +269,11 @@ chart.render();
 </script>
 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>      
-<br><br><br>
+<br><br>
                 </div>
+                <div align="right">
+                	<a href="A_pdfVentas.php?t=pdf" target="_blank">PDF</a>
+                </div><br>
               </hr>
             </div>
             <div class="card-footer text-muted">

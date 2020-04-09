@@ -241,13 +241,12 @@ window.onload = function () {
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 	exportEnabled: true,
-	theme: "light1", // "light1", "light2", "dark1", "dark2"
+	theme: "light1",
 	title:{
 		text: "Reporte de peliculas mensual"
 	},
 	data: [{
-		type: "column", //change type to bar, line, area, pie, etc
-		//indexLabel: "{y}", //Shows y value on all Data Points
+		type: "column", 
 		indexLabelFontColor: "#5A5757",
 		indexLabelPlacement: "outside",   
 		dataPoints: <?php echo json_encode($datosMes, JSON_NUMERIC_CHECK); ?>
@@ -259,8 +258,11 @@ chart.render();
 </script>
 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<br><br><br>
+<br><br>
                 </div>
+                <div align="right">
+                	<a href="A_pdfPeliculas.php?t=pdf" target="_blank">PDF</a>
+                </div><br>
               </hr>
             </div>
             <div class="card-footer text-muted">
