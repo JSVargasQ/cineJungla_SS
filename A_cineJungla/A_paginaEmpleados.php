@@ -249,7 +249,7 @@
 
           <tr>
             <td><input type="hidden"></td>
-            <td><input type="hidden" id="multiplex" name="multiplex" value=2></td>
+            <td><input type="hidden" id="multiplex" name="multiplex" <?php echo $cod_mul ?>></td>
           </tr>
 
           <tr>
