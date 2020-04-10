@@ -45,13 +45,15 @@ ob_start();
 			for($i = 0; $i < 12; $i++)
 			{
 
+				$nMes = $i+1;
+
 				$sql = "SELECT 
 							cod_multiplex as MULTIPLEX, SUM(TOTAL_PRODUCTOS), SUM(TOTAL_SILLA)
 					  FROM 
 							mostrar_facturas_ventas
 					  WHERE 
 							YEAR(FECHA_COMPRA)=".$_POST['año']." AND
-							MONTH(FECHA_COMPRA)=".$i." 
+							MONTH(FECHA_COMPRA)=".$nMes." 
 			  
 					  GROUP BY MULTIPLEX;";
 			  
@@ -63,8 +65,8 @@ ob_start();
 			?>
 				<tr style="border-color: #4f944a; border-collapse:collapse">
 					<td><center><?php echo $meses_ES[$i] ?></center></td>
-					<td><center><?php echo $mostrar[1] ?></center></td>
-					<td><center><?php echo $mostrar[2] ?></center></td>
+					<td><center><?php echo intval($mostrar[1]) ?></center></td>
+					<td><center><?php echo intval($mostrar[2]) ?></center></td>
 					<td><center><?php echo intval($mostrar[1])+intval($mostrar[2]) ?></center></td>
 				</tr>
 			<?php 
