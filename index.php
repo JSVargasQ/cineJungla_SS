@@ -1,8 +1,7 @@
 <?php 
 
-
-include_once 'controlador/user.php';
-include_once 'controlador/user_Sesion.php';
+include_once 'A_cineJungla/controlador/user.php';
+include_once 'A_cineJungla/controlador/user_Sesion.php';
 
 
 $userSession = new UserSession();
@@ -14,7 +13,7 @@ if(isset($_SESSION['user'])){
 		if($tipo==2){
 		header('location: tablaProductos.php');
 		}else if($tipo==1){
-		header("location: A_paginaIndex.php");
+		header("location: A_cinejungla/A_paginaIndex.php");
 		}else if($tipo==6){
 		header("location: G_paginaIndex.php");
 		}
@@ -31,7 +30,7 @@ if(isset($_SESSION['user'])){
 		if($tipo==2){
 		header('location: tablaProductos.php');
 		}else if($tipo==1){
-		header("location: A_paginaIndex.php");
+		header("location: A_cinejungla/A_paginaIndex.php");
 		}else if($tipo==6){
 		header("location: G_paginaIndex.php");
 		}
@@ -45,7 +44,4 @@ if(isset($_SESSION['user'])){
 	include_once 'login.php';
 }
  
-
  ?>
-
-
