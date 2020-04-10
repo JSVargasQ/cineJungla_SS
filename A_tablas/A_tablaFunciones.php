@@ -40,7 +40,8 @@ $result=mysqli_query($conexion,$sql);
 				<td>SALA</td>
 				<td>PELICULA</td>
 				<td>DURACIÓN</td>
-				<td>HORARIO</td>
+				<td>FECHA</td>
+				<td>HORA</td>
 				<td>SILLAS LIBRES</td>
 				<td>ESTADO</td>
 				<td>EDITAR</td>
@@ -53,7 +54,8 @@ $result=mysqli_query($conexion,$sql);
 				<td>SALA</td>
 				<td>PELICULA</td>
 				<td>DURACIÓN</td>
-				<td>HORARIO</td>
+				<td>FECHA</td>
+				<td>HORA</td>
 				<td>SILLAS LIBRES</td>
 				<td>ESTADO</td>
 				<td>EDITAR</td>
@@ -68,8 +70,11 @@ $result=mysqli_query($conexion,$sql);
 					<td><?php echo $mostrar[0] ?></td>
 					<td><?php echo $mostrar[1] ?></td>
 					<td><?php echo $mostrar[2] ?></td>
-					<td><?php echo $mostrar[3] ?></td>
-					<td><?php echo $mostrar[4] ?></td>
+					<td><center><?php echo $mostrar[3] ?></center></td>
+
+					<td><?php echo substr($mostrar[4], 0,10) ?></td>
+					<td><?php echo substr($mostrar[4], 11) ?></td>
+					
 					<td><?php echo $mostrar[5] ?></td>
 					<td><?php echo $mostrar[6] ?></td>
 
