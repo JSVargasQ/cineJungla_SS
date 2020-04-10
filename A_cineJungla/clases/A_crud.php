@@ -79,7 +79,7 @@ include_once '../controlador/user_Sesion.php';
 			$sql = "INSERT INTO EMPLEADO VALUES(NULL,'".$datos[0]."',".$datos[1].",'".$fecha."',".$datos[2].",".$datos[3].",".$datos[4].",'".$datos[5]."','ACTIVO')";
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Create', 'Empleado', now(),'".$this->ip."');";
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Create', 'Empleados', now(),'".$this->ip."');";
 			mysqli_query($conexion,$sql);
 			
 			return $r;
@@ -107,7 +107,7 @@ include_once '../controlador/user_Sesion.php';
 
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Snack', now(),'".$this->ip."');";
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Snacks', now(),'".$this->ip."');";
 			mysqli_query($conexion,$sql);
 			
 		    return $r;
@@ -204,7 +204,7 @@ include_once '../controlador/user_Sesion.php';
 
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Empleado', now(),'".$this->ip."');";
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Empleados', now(),'".$this->ip."');";
 			mysqli_query($conexion,$sql);
 			
 			return $r;
@@ -218,7 +218,7 @@ include_once '../controlador/user_Sesion.php';
 	
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Delete', 'Empleado', now(),'".$this->ip."');";
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Delete', 'Empleados', now(),'".$this->ip."');";
 			mysqli_query($conexion,$sql);
 			
 			return $r;			
@@ -231,7 +231,7 @@ include_once '../controlador/user_Sesion.php';
 			$sql = "UPDATE EMPLEADO SET estado_empleado='ACTIVO' WHERE cod_empleado=".$pCodEmpleado;
 			$r = mysqli_query($conexion, $sql);
 			
-			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Empleado', now(),'".$this->ip."');";
+			$sql = "insert into AUDITORIA (cod_usuario, nombre_cargo_empleado, accion, nombre_tabla, fecha_modificacion, ip_modificacion) values (".$this->cod_usuario.", '".$this->nom_c_empleado."', 'Update', 'Empleados', now(),'".$this->ip."');";
 			mysqli_query($conexion,$sql);
 			
 			return $r;
